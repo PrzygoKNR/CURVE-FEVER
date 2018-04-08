@@ -12,7 +12,7 @@ public class Board {
         return this.size;
     }   
     
-    public boolean checkSpace(Point position, int size) {
+    public boolean checkSpace(Point2D position, int size) {
         return this.position;
     }
 }
