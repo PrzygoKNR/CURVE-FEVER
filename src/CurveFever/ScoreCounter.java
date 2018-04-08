@@ -8,7 +8,7 @@ public class ScoreCounter {
     }
 
     public int[] getScore() {
-      return scores;
+        return scores;
     }
 
     public void clearScore() {

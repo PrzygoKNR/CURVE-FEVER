@@ -1,8 +1,9 @@
 package CurveFever;
+import java.awt.geom.Point2D;
 
 public class Board {
     public int[][] boardArray;
-    privat int size;
+    private int size;
     
     public void Board(int size) {
     
@@ -13,6 +14,6 @@ public class Board {
     }   
     
     public boolean checkSpace(Point2D position, int size) {
-        return this.position;
+        return false; //TODO
     }
 }

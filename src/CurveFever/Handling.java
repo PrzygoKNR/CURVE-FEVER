@@ -1,8 +1,9 @@
 package CurveFever;
+import javafx.scene.input.KeyCode;
 
 public class Handling {
 
-   public void handleKey(Key key) {
+   public void handleKey(KeyCode key) {
        
    }
     
