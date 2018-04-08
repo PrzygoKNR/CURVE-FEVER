@@ -5,7 +5,7 @@ public class ScoreCounter {
 
     public void increseScore(int id, int value) {}
 
-    public int getScore() {
+    public int[] getScore() {
       return scores;
     }
 
