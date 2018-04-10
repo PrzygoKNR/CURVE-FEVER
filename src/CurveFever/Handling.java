@@ -7,7 +7,7 @@ public class Handling {
        
    }
     
-   public void Handling(Board board) {
+   public Handling(Board board) {
        
    }
 }

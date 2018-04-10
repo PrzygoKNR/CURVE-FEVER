@@ -10,7 +10,7 @@ public class Bonus {
     private BonusType type;
     public Point2D position;
 
-    public void Bonus(int x, int y) {
+    public Bonus(int x, int y) {
 
     }
 

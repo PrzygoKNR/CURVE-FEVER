@@ -2,6 +2,7 @@ package CurveFever;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
+import javafx.scene.input.KeyCode;
 
 public class Player {
     private static int maxId = 0;
@@ -15,7 +16,7 @@ public class Player {
     private double angle;
     private Point2D position;
 
-    Player(Color color, int leftKey, int rightKey){
+    public Player(Color color, int leftKey, int rightKey){
         this.playerID = maxId;
         maxId++;
         this.color = color;
@@ -31,7 +32,7 @@ public class Player {
         return this.size;
     }
 
-    public void handleKey(int key){
+    public void handleKey(KeyCode key){
 
     }
 

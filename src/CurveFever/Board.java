@@ -1,12 +1,14 @@
 package CurveFever;
 import java.awt.geom.Point2D;
+import java.util.*;
 
 public class Board {
     public int[][] boardArray;
     private int size;
-    
-    public void Board(int size) {
-    
+    List<Player> players;
+
+    public Board(int size, List<Player> players) {
+        this.players = players;
     }
     
     public int getSize() {
