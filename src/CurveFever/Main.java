@@ -20,6 +20,8 @@ public class Main extends Application {
         primaryStage.setTitle("Hello World");
         Scene scene = new Scene(root, 300, 275);
 
+        GameFacade gameFacade = new GameFacade(2);
+
         scene.setOnKeyPressed(new EventHandler<KeyEvent>(){
             @Override
             public void handle(KeyEvent event){

@@ -11,12 +11,12 @@ public class Player {
     private int size;
     private int speed;
     private boolean isDead;
-    private int leftKey;
-    private int rightKey;
+    private KeyCode leftKey;
+    private KeyCode rightKey;
     private double angle;
     private Point2D position;
 
-    public Player(Color color, int leftKey, int rightKey){
+    public Player(Color color, KeyCode leftKey, KeyCode rightKey){
         this.playerID = maxId;
         maxId++;
         this.color = color;
