@@ -1,5 +1,7 @@
 package CurveFever;
 
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
@@ -18,9 +20,7 @@ public class Player implements IDrawable{
     private KeyCode rightKey;
     private double angle = 0;
     private double rotateStep = 1;
-    private Point2D position;
-    private double x;
-    private double y;
+    private Point position;
 
     public Player(Color color, KeyCode leftKey, KeyCode rightKey) {
         this.playerID = maxId;
@@ -30,6 +30,7 @@ public class Player implements IDrawable{
         //this.rightKey = rightKey;
         this.leftKey = KeyCode.LEFT;
         this.rightKey = KeyCode.RIGHT;
+        this.position = new Point();
     }
 
     private void rotate(double angle){
@@ -79,13 +80,15 @@ public class Player implements IDrawable{
 
     public void makeStep()
     {
-        x += speed * Math.sin(Math.toRadians(angle));
-        y += speed * Math.cos(Math.toRadians(angle));
-        position.add(x,y);
+        position.x += speed * Math.sin(Math.toRadians(angle));
+        position.y += speed * Math.cos(Math.toRadians(angle));
 
-        //???? xD hehehehehheheheh smiesznie curde
+        //???? xD hehehehehheheheh smiesznie curde polecam pizze na przecenie w lidlu (ta czekoladowa) :*
     }
-    public void draw(){
+    public void draw(GraphicsContext gc){
         System.out.println("ja sie rysuje");
+        gc.setFill(this.color);
+        gc.fillOval(this.position.x,this.position.y, size, size);
+        gc.restore();
     }
 }

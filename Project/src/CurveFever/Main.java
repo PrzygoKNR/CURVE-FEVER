@@ -2,8 +2,11 @@ package CurveFever;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import javafx.event.EventHandler;
@@ -16,11 +19,13 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        Parent root = FXMLLoader.load(getClass().getResource("MainActivity.fxml"));
+        //Parent root = FXMLLoader.load(getClass().getResource("MainActivity.fxml"));
+        Group root = new Group();
         primaryStage.setTitle("Hello World");
         Scene scene = new Scene(root, 300, 275);
-
-        GameFacade gameFacade = new GameFacade(1, pressedKeys);
+        Canvas canvas = new Canvas(300, 275);
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        GameFacade gameFacade = new GameFacade(1, pressedKeys, gc);
 
         scene.setOnKeyPressed(new EventHandler<KeyEvent>(){
             @Override
@@ -42,7 +47,8 @@ public class Main extends Application {
             }
         });
 
-
+        root.getChildren().add(canvas);
+        gameFacade.handleKey(pressedKeys);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

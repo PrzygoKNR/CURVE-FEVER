@@ -1,6 +1,7 @@
 package CurveFever;
 
 import javafx.geometry.Point2D;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import java.util.*;
 import java.util.List;
@@ -16,9 +17,10 @@ public class GameFacade {
     List<Bonus> bonuses = new ArrayList<Bonus>();
     static List<KeyCode> pressedKeys;
 
-    public GameFacade(int numberOfPlayers, List<KeyCode> pressedKeys1){
+    public GameFacade(int numberOfPlayers, List<KeyCode> pressedKeys1, GraphicsContext gc){
+
         GameFacade.pressedKeys = pressedKeys1;
-        boardObject = new Board(400, players);
+        boardObject = new Board(400, players, gc);
         handlingObject = new Handling(boardObject);
         scoreCounterObject = new ScoreCounter();
         Timer timer = new Timer();
@@ -34,24 +36,23 @@ public class GameFacade {
                players.add(new Player(colors[i], keys[i][0],keys[i][1]));
            }
        }
-       timer.scheduleAtFixedRate(new TimerTask() {
+       /*timer.scheduleAtFixedRate(new TimerTask() {
            @Override
            public void run() {
                testHandleKey();
                handlingObject.handleKeys(GameFacade.pressedKeys,players);
            }
        },0,100);
+
+       przerzucone do Boardu
+       */
     }
 
     Dictionary<Integer, Integer> getScores(){
 
         return null;
     }
-    void testHandleKey(){
-        for(Player player: players){
-            System.out.print(player.getAngle());
-            System.out.print(" ");
-        }
-        System.out.print("\n");
+    public void handleKey(List<KeyCode> keys){
+        handlingObject.handleKeys(keys, players);
     }
 }

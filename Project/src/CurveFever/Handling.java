@@ -12,7 +12,7 @@ public class Handling {
          {
             player.handleKey(key);
          }
-         player.draw();
+         //player.draw();
       }
    }
     

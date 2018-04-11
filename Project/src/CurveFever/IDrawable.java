@@ -1,7 +1,7 @@
 package CurveFever;
 
-import javafx.geometry.Point2D;
+import javafx.scene.canvas.GraphicsContext;
 
 public interface IDrawable {
-    void draw();
+    void draw(GraphicsContext gc);
 }
