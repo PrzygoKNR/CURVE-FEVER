@@ -85,7 +85,7 @@ public class Player implements IDrawable{
 
         //???? xD hehehehehheheheh smiesznie curde
     }
-    public void draw(Point2D point, int size){
+    public void draw(){
         System.out.println("ja sie rysuje");
     }
 }

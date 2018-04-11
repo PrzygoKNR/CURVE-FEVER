@@ -1,5 +1,6 @@
 package CurveFever;
 
+import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import java.util.*;
 import java.util.List;
@@ -36,8 +37,8 @@ public class GameFacade {
        timer.scheduleAtFixedRate(new TimerTask() {
            @Override
            public void run() {
-                  testHandleKey();
-                  handleKeys(GameFacade.pressedKeys,players);
+               testHandleKey();
+               handlingObject.handleKeys(GameFacade.pressedKeys,players);
            }
        },0,100);
     }
@@ -52,14 +53,5 @@ public class GameFacade {
             System.out.print(" ");
         }
         System.out.print("\n");
-    }
-
-    private void handleKeys( List<KeyCode> pressedKeys, List<Player> players) {
-        for(Player player: players){
-            for(KeyCode key: pressedKeys)
-            {
-                player.handleKey(key);
-            }
-        }
     }
 }
