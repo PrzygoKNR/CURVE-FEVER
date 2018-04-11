@@ -1,11 +1,14 @@
 package CurveFever;
 
-import java.awt.*;
-import java.awt.geom.Point2D;
+
+
+import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
+import javafx.scene.paint.Color;
+
 import java.lang.Math;
 
-public class Player {
+public class Player implements IDrawable {
     private static int maxId = 0;
     private int playerID;
     private Color color;
@@ -74,5 +77,9 @@ public class Player {
 
 
         //???? xD hehehehehheheheh smiesznie curde
+    }
+
+    public void draw(Point2D point, int size){
+        System.out.println("ja sie rysuje");
     }
 }

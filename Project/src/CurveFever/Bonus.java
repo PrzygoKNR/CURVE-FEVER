@@ -1,7 +1,7 @@
 package CurveFever;
 
 import java.util.*;
-import java.awt.geom.Point2D;
+import javafx.geometry.Point2D;
 
 public class Bonus {
 

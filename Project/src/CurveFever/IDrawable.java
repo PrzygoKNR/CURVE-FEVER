@@ -1,7 +1,7 @@
 package CurveFever;
 
-import java.awt.geom.Point2D;
+import javafx.geometry.Point2D;
 
 public interface IDrawable {
-    void Draw(Point2D point, int size);
+    void draw(Point2D point, int size);
 }

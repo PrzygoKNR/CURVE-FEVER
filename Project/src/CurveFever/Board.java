@@ -1,6 +1,7 @@
 package CurveFever;
-import java.awt.geom.Point2D;
 import java.util.*;
+import javafx.geometry.Point2D;
+import javafx.scene.input.KeyCode;
 
 public class Board {
     public int[][] boardArray;
@@ -18,4 +19,12 @@ public class Board {
     public boolean checkSpace(Point2D position, int size) {
         return false; //TODO
     }
+
+    void handleKey(KeyCode key) {
+        for(Player player: players) {
+            player.handleKey(key);
+            player.draw(new Point2D(1,2), 2);
+        }
+    }
+
 }

@@ -1,6 +1,6 @@
 package CurveFever;
 
-import java.awt.*;
+import javafx.scene.paint.Color;
 import java.util.*;
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class GameFacade {
 
         //Create static keys
         KeyCode[][] keys = {{KeyCode.LEFT, KeyCode.RIGHT}, {KeyCode.A, KeyCode.D}, {KeyCode.J, KeyCode.L}, {KeyCode.NUMPAD4, KeyCode.NUMPAD6}};
-        Color[] colors = {Color.red, Color.green, Color.blue, Color.orange};
+        Color[] colors = {Color.RED, Color.GREEN, Color.BLUE, Color.ORANGE};
        if(numberOfPlayers>4){
            throw new IllegalArgumentException();
        }
@@ -32,10 +32,8 @@ public class GameFacade {
        }
     }
 
-    void HandleKey(KeyCode key){
-        for(Player player: players){
-            player.handleKey(key);
-        }
+    void handleKey(KeyCode key){
+        boardObject.handleKey(key);
     }
 
     Dictionary<Integer, Integer> getScores(){
