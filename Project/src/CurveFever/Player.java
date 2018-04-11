@@ -81,7 +81,7 @@ public class Player implements IDrawable{
     {
         x += speed * Math.sin(Math.toRadians(angle));
         y += speed * Math.cos(Math.toRadians(angle));
-
+        position.add(x,y);
 
         //???? xD hehehehehheheheh smiesznie curde
     }
