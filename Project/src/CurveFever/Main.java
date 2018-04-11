@@ -20,7 +20,7 @@ public class Main extends Application {
         primaryStage.setTitle("Hello World");
         Scene scene = new Scene(root, 300, 275);
 
-        GameFacade gameFacade = new GameFacade(2);
+        GameFacade gameFacade = new GameFacade(1, pressedKeys);
 
         scene.setOnKeyPressed(new EventHandler<KeyEvent>(){
             @Override
@@ -28,7 +28,7 @@ public class Main extends Application {
                 if(!pressedKeys.contains(event.getCode())){
                     pressedKeys.add(event.getCode());
                 }
-                testKeyboardWork();
+                //testKeyboardWork();
             }
         });
 
@@ -38,13 +38,15 @@ public class Main extends Application {
                 if(pressedKeys.contains(event.getCode())){
                     pressedKeys.remove(event.getCode());
                 }
-                testKeyboardWork();
+                //testKeyboardWork();
             }
         });
+
 
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+
 
     public static void main(String[] args) {
         launch(args);

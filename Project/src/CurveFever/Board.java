@@ -23,7 +23,6 @@ public class Board {
     void handleKey(KeyCode key) {
         for(Player player: players) {
             player.handleKey(key);
-            player.draw(new Point2D(1,2), 2);
         }
     }
 

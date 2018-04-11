@@ -1,17 +1,16 @@
 package CurveFever;
 
-
-
+import javafx.scene.paint.Color;
 import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
-import javafx.scene.paint.Color;
-
 import java.lang.Math;
 
-public class Player implements IDrawable {
+public class Player implements IDrawable{
     private static int maxId = 0;
     private int playerID;
     private Color color;
+    private static int sizedefault = 5;
+    private static int speeddefault = 1;
     private int size = 5;
     private int speed = 1;
     private boolean isDead;
@@ -23,18 +22,20 @@ public class Player implements IDrawable {
     private double x;
     private double y;
 
-    public Player(Color color, KeyCode leftKey, KeyCode rightKey){
+    public Player(Color color, KeyCode leftKey, KeyCode rightKey) {
         this.playerID = maxId;
         maxId++;
         this.color = color;
-        this.leftKey = leftKey;
-        this.rightKey = rightKey;
+        //this.leftKey = leftKey;
+        //this.rightKey = rightKey;
+        this.leftKey = KeyCode.LEFT;
+        this.rightKey = KeyCode.RIGHT;
     }
 
     private void rotate(double angle){
         this.angle += angle;
         if(this.angle > 360.0) this.angle -= 360.0;
-        if(this.angle < 0.0) this.angle = 360 - this.angle;
+        if(this.angle < 0.0) this.angle += 360;
     }
 
     public int getSize(){
@@ -42,8 +43,10 @@ public class Player implements IDrawable {
     }
 
     public void handleKey(KeyCode key){
-        if(key == leftKey) rotate(rotateStep);
-        else if (key == rightKey) rotate(-rotateStep);
+        {
+            if (key == leftKey) rotate(rotateStep);
+            else if (key == rightKey) rotate(-rotateStep);
+        }
     }
 
     public Color getColor(){
@@ -70,16 +73,19 @@ public class Player implements IDrawable {
         this.isDead = isDead;
     }
 
+    public double getAngle() {
+        return angle;
+    }
+
     public void makeStep()
     {
         x += speed * Math.sin(Math.toRadians(angle));
         y += speed * Math.cos(Math.toRadians(angle));
-
+        position.add(x,y);
 
         //???? xD hehehehehheheheh smiesznie curde
     }
-
-    public void draw(Point2D point, int size){
+    public void draw(){
         System.out.println("ja sie rysuje");
     }
 }
