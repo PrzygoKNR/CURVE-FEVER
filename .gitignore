@@ -1,0 +1,6 @@
+
+production
+.idea
+.idea/workspace.xml
+**/out/production/*
+**/.idea/*
