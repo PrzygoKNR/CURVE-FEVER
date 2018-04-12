@@ -1,4 +1,4 @@
-package CurveFever;
+package curveFever;
 
 import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
@@ -14,9 +14,9 @@ public class GameFacade {
 
     List<Player> players = new ArrayList<Player>();
     List<Bonus> bonuses = new ArrayList<Bonus>();
-    static List<KeyCode> pressedKeys;
+    static Set<KeyCode> pressedKeys;
 
-    public GameFacade(int numberOfPlayers, List<KeyCode> pressedKeys1, final GraphicsContext gc){
+    public GameFacade(int numberOfPlayers, Set<KeyCode> pressedKeys1, final GraphicsContext gc){
 
         GameFacade.pressedKeys = pressedKeys1;
         boardObject = new Board(400, players, gc);
@@ -51,13 +51,13 @@ public class GameFacade {
                            player.makeStep();
                        }
                    }
-               });j
+               });
             }
 
        },0,10);
     }
 
-    public Dictionary<Integer, Integer> getScores(){
+    public Map<Integer, Integer> getScores(){
 
         return null;
     }

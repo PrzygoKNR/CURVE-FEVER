@@ -1,17 +1,19 @@
-package CurveFever;
+package curveFever;
+
+import java.util.*;
 
 public class ScoreCounter {
-    private int[] scores;
+    private Map<Integer, Integer> scores;
 
     public void increseScore(int id, int value) {
     
     }
 
-    public int[] getScore() {
+    public Map<Integer, Integer> getScores() {
         return scores;
     }
 
-    public void clearScore() {
+    public void clearScores() {
     
     }
 }

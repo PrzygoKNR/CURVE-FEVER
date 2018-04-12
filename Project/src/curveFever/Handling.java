@@ -1,13 +1,13 @@
-package CurveFever;
+package curveFever;
+
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
-
-import java.util.List;
+import java.util.*;
 
 public class Handling {
    GraphicsContext gc;
 
-   public void handleKeys(List<KeyCode> pressedKeys,Player player) {
+   public void handleKeys(Set<KeyCode> pressedKeys, Player player) {
          for(KeyCode key: pressedKeys)
          {
             player.handleKey(key);

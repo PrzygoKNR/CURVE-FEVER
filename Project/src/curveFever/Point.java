@@ -1,4 +1,4 @@
-package CurveFever;
+package curveFever;
 
 public class Point {
     public double x;

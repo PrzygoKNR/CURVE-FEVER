@@ -1,4 +1,4 @@
-package CurveFever;
+package curveFever;
 
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -13,7 +13,7 @@ import java.util.*;
 
 public class Main extends Application {
 
-    private static List<KeyCode> pressedKeys = new ArrayList<KeyCode>();
+    private static Set<KeyCode> pressedKeys = new HashSet<KeyCode>();
     @Override
     public void start(Stage primaryStage) throws Exception{
 
@@ -29,18 +29,14 @@ public class Main extends Application {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>(){
             @Override
             public void handle(KeyEvent event){
-                if(!pressedKeys.contains(event.getCode())){
-                    pressedKeys.add(event.getCode());
-                }
+                pressedKeys.add(event.getCode());
             }
         });
 
         scene.setOnKeyReleased(new EventHandler<KeyEvent>(){
             @Override
             public void handle(KeyEvent event){
-                if(pressedKeys.contains(event.getCode())){
-                    pressedKeys.remove(event.getCode());
-                }
+                pressedKeys.remove(event.getCode());
             }
         });
 
@@ -55,8 +51,8 @@ public class Main extends Application {
     }
 
     public static void testKeyboardWork(){
-        for(int i=0;i<pressedKeys.size();i++){
-            System.out.print(pressedKeys.get(i));
+        for(KeyCode code: pressedKeys){
+            System.out.print(code);
             System.out.print(" ");
         }
         System.out.print("\n");

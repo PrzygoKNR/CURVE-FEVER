@@ -1,4 +1,4 @@
-package CurveFever;
+package curveFever;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
