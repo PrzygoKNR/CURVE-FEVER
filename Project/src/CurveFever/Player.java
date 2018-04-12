@@ -1,9 +1,7 @@
 package CurveFever;
 
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 import java.lang.Math;
 
@@ -11,26 +9,29 @@ public class Player implements IDrawable{
     private static int maxId = 0;
     private int playerID;
     private Color color;
-    private static int sizedefault = 5;
-    private static int speeddefault = 1;
-    private int size = 5;
-    private int speed = 1;
+    private static int sizeDefault = 10;
+    private static int speedDefault = 2;
+    private static int rotateDefault = 2;
+    private int size;
+    private int speed;
     private boolean isDead;
     private KeyCode leftKey;
     private KeyCode rightKey;
-    private double angle = 0;
-    private double rotateStep = 1;
+    private double angle;
+    private double rotateStep;
     private Point position;
 
-    public Player(Color color, KeyCode leftKey, KeyCode rightKey) {
+    public Player(Color color, KeyCode leftKey, KeyCode rightKey, Point startingPosition, double startingAngle) {
         this.playerID = maxId;
         maxId++;
         this.color = color;
-        //this.leftKey = leftKey;
-        //this.rightKey = rightKey;
-        this.leftKey = KeyCode.LEFT;
-        this.rightKey = KeyCode.RIGHT;
-        this.position = new Point();
+        this.leftKey = leftKey;
+        this.rightKey = rightKey;
+        this.position = startingPosition;
+        this.angle = startingAngle;
+        size = sizeDefault;
+        speed = speedDefault;
+        rotateStep = rotateDefault;
     }
 
     private void rotate(double angle){
@@ -44,10 +45,8 @@ public class Player implements IDrawable{
     }
 
     public void handleKey(KeyCode key){
-        {
-            if (key == leftKey) rotate(rotateStep);
-            else if (key == rightKey) rotate(-rotateStep);
-        }
+        if (key == leftKey) rotate(rotateStep);
+        else if (key == rightKey) rotate(-rotateStep);
     }
 
     public Color getColor(){
@@ -82,11 +81,8 @@ public class Player implements IDrawable{
     {
         position.x += speed * Math.sin(Math.toRadians(angle));
         position.y += speed * Math.cos(Math.toRadians(angle));
-
-        //???? xD hehehehehheheheh smiesznie curde polecam pizze na przecenie w lidlu (ta czekoladowa) :*
     }
     public void draw(GraphicsContext gc){
-        System.out.println("ja sie rysuje");
         gc.setFill(this.color);
         gc.fillOval(this.position.x,this.position.y, size, size);
         gc.restore();

@@ -1,14 +1,14 @@
 package CurveFever;
 
 import java.util.*;
-import javafx.geometry.Point2D;
+
 
 public class Bonus {
 
     private static int maxId = 0;
     private int bonusID;
     private BonusType type;
-    public Point2D position;
+    public Point position;
 
     public Bonus(int x, int y) {
 

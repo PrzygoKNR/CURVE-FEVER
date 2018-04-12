@@ -1,9 +1,7 @@
 package CurveFever;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -19,13 +17,14 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        //Parent root = FXMLLoader.load(getClass().getResource("MainActivity.fxml"));
         Group root = new Group();
-        primaryStage.setTitle("Hello World");
-        Scene scene = new Scene(root, 300, 275);
-        Canvas canvas = new Canvas(300, 275);
+        primaryStage.setTitle("Curve Fever");
+
+        Scene scene = new Scene(root, 2000, 1000);
+        Canvas canvas = new Canvas(2000, 1000);
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        GameFacade gameFacade = new GameFacade(1, pressedKeys, gc);
+
+        GameFacade gameFacade = new GameFacade(2, pressedKeys, gc);
 
         scene.setOnKeyPressed(new EventHandler<KeyEvent>(){
             @Override
@@ -33,7 +32,6 @@ public class Main extends Application {
                 if(!pressedKeys.contains(event.getCode())){
                     pressedKeys.add(event.getCode());
                 }
-                //testKeyboardWork();
             }
         });
 
@@ -43,12 +41,10 @@ public class Main extends Application {
                 if(pressedKeys.contains(event.getCode())){
                     pressedKeys.remove(event.getCode());
                 }
-                //testKeyboardWork();
             }
         });
 
         root.getChildren().add(canvas);
-        gameFacade.handleKey(pressedKeys);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

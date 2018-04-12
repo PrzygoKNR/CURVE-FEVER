@@ -1,22 +1,20 @@
 package CurveFever;
-import javafx.geometry.Point2D;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 
 import java.util.List;
 
 public class Handling {
+   GraphicsContext gc;
 
-   public void handleKeys( List<KeyCode> pressedKeys, List<Player> players) {
-      for(Player player: players){
+   public void handleKeys(List<KeyCode> pressedKeys,Player player) {
          for(KeyCode key: pressedKeys)
          {
             player.handleKey(key);
          }
-         //player.draw();
-      }
    }
     
-   public Handling(Board board) {
-       
+   public Handling(Board board, GraphicsContext gc) {
+       this.gc = gc;
    }
 }
