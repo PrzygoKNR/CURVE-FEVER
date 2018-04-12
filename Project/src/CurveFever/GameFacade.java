@@ -1,5 +1,6 @@
 package CurveFever;
 
+import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import java.util.*;
@@ -41,12 +42,18 @@ public class GameFacade {
        timer.scheduleAtFixedRate(new TimerTask() {
            @Override
            public void run() {
-               for(Player player: players){
-                   handlingObject.handleKeys(GameFacade.pressedKeys,player);
-                   player.draw(gc);
-                   player.makeStep();
-               }
-           }
+               Platform.runLater(new Runnable() {
+                   @Override
+                   public void run() {
+                       for(Player player: players){
+                           handlingObject.handleKeys(GameFacade.pressedKeys,player);
+                           player.draw(gc);
+                           player.makeStep();
+                       }
+                   }
+               });j
+            }
+
        },0,10);
     }
 
