@@ -7,6 +7,8 @@ import javafx.scene.input.KeyCode;
 import java.lang.Math;
 
 public class Player implements IDrawable {
+    private final static Color emptyBoardColor = Color.WHITE;
+    private final static Color playerPointColor = Color.GREY;
     private static int maxId = 0;
     private int playerID;
     private Color color;
@@ -105,10 +107,10 @@ public class Player implements IDrawable {
     }
 
     public void draw(GraphicsContext gc) {
-        gc.setFill(Color.WHITE);                                            //zakrywa stara pozycje gracza
+        gc.setFill(emptyBoardColor);                                            //zakrywa stara pozycje gracza
         gc.fillOval(this.position[1].x, this.position[1].y, size, size);
         gc.restore();
-        gc.setFill(Color.GRAY);                                             //rysuje pozycje gracza
+        gc.setFill(playerPointColor);                                             //rysuje pozycje gracza
         gc.fillOval(this.position[0].x, this.position[0].y, size, size);
         gc.restore();
         gc.setFill(this.color);                                             //rysuje slad
