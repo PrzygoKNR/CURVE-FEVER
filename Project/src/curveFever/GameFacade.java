@@ -29,7 +29,6 @@ public class GameFacade {
         Color[] colors = {Color.RED, Color.GREEN, Color.BLUE, Color.ORANGE};
         Point [] startingPosition = {new Point(200,300), new Point(300 , 500), new Point(1000,400), new Point(700,200)};
         Double [] startingAngle = {200.0, 100.0, 0.0, 300.0};
-
        if(numberOfPlayers>4){
            throw new IllegalArgumentException();
        }
@@ -38,7 +37,13 @@ public class GameFacade {
                players.add(new Player(colors[i], keys[i][0], keys[i][1], startingPosition[i], startingAngle[i]));
            }
        }
-
+       for(int i = 0; i < 10; i++) {            // przed rozpoczęciem wykonuje kilka ruchów żeby nie wykryło zderzenia i było wiadomo w którą stronę skierowanie są gracze
+           for (Player player: players) {
+               player.makeStep();
+               player.draw(gc);
+               boardObject.addTrace(player.getPositionForTrace(),player.getSize());
+           }
+       }
        timer.scheduleAtFixedRate(new TimerTask() {
            @Override
            public void run() {
@@ -48,7 +53,9 @@ public class GameFacade {
                        for(Player player: players){
                            handlingObject.handleKeys(GameFacade.pressedKeys,player);
                            player.makeStep();
+                           if(boardObject.checkSpace(player.getPosition(),player.getSize()) == true) {player.setIsDead(true);}
                            player.draw(gc);
+                           boardObject.addTrace(player.getPositionForTrace(),player.getSize());
                        }
                    }
                });

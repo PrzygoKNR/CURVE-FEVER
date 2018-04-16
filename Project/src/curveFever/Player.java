@@ -36,6 +36,7 @@ public class Player implements IDrawable{
         size = sizeDefault;
         speed = speedDefault;
         rotateStep = rotateDefault;
+        isDead = false;
     }
 
     private void rotate(double angle){
@@ -81,20 +82,29 @@ public class Player implements IDrawable{
         return angle;
     }
 
+    public Point getPositionForTrace() {
+        return new Point( position[7].x, position[7].y); // pozycja w której rysujemy slad
+    }
+
+    public Point getPosition() {
+        return position[0];
+    }
+
     public void makeStep()
     {
         for(int i = positionLenght - 1; i > 0; i--){
             position[i].x = position[i-1].x;
             position[i].y = position[i-1].y;
         }
-        position[0].x += speed * Math.sin(Math.toRadians(angle));
-        position[0].y += speed * Math.cos(Math.toRadians(angle));
-
+        if(isDead == false) {
+            position[0].x += speed * Math.sin(Math.toRadians(angle));
+            position[0].y += speed * Math.cos(Math.toRadians(angle));
+        }
         //positionTest();
     }
     public void draw(GraphicsContext gc){
         gc.setFill(Color.WHITE);
-        gc.fillOval(this.position[1].x,this.position[1].y, size+5, size+5);
+        gc.fillOval(this.position[1].x,this.position[1].y, size, size);
         gc.restore();
         gc.setFill(Color.GRAY);
         gc.fillOval(this.position[0].x,this.position[0].y, size, size);
