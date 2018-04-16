@@ -20,15 +20,26 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
         Group root = new Group();
         primaryStage.setTitle("Curve Fever");
+        primaryStage.setResizable(false);
+        primaryStage.setMaximized(true);
 
         Scene scene = new Scene(root, 2000, 1000);
-        Canvas canvas = new Canvas(2000, 1000);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
+        // pobieranie aktualnych wymiarów formularza
+
+        int widthOfForm = (int)primaryStage.getWidth();
+        int heightOfForm = (int)primaryStage.getHeight();
+
+        // tworzenie kanwy rysunku o wymiarach formularza
+
+        Canvas canvas = new Canvas(widthOfForm, heightOfForm);
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        GameFacade gameFacade = new GameFacade(2, pressedKeys, gc);
+        GameFacade gameFacade = new GameFacade(widthOfForm, heightOfForm,2, pressedKeys, gc);
 
         // Obsługa zdarzeń
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -55,8 +66,6 @@ public class Main extends Application {
 
         //dodawanie canvas oraz pokazywanie formularza
         root.getChildren().add(canvas);
-        primaryStage.setScene(scene);
-        primaryStage.show();
     }
 
 

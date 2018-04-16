@@ -18,9 +18,9 @@ public class GameFacade {
     List<Bonus> bonuses = new ArrayList<Bonus>();
     static Set<KeyCode> pressedKeys;
 
-    public GameFacade(int numberOfPlayers, Set<KeyCode> pressedKeys1, final GraphicsContext gc) {
+    public GameFacade(int width, int height, int numberOfPlayers, Set<KeyCode> pressedKeys1, final GraphicsContext gc) {
         GameFacade.pressedKeys = pressedKeys1;
-        boardObject = new Board(400, players, gc);
+        boardObject = new Board(width, height, players, gc);
         handlingObject = new Handling(boardObject, gc);
         scoreCounterObject = new ScoreCounter();
         Timer timer = new Timer();

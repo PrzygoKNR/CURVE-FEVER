@@ -6,23 +6,31 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 
 public class Board {
-    public int[][] boardArray = new int[2000][1000];
-    private int size;
+    public int[][] boardArray;
+    private int width;
+    private int height;
     private Canvas canvas;
 
     List<Player> players;
 
-    public Board(int size, final List<Player> players, final GraphicsContext gc) {
+    public Board(int width, int height, final List<Player> players, final GraphicsContext gc) {
+        this.width = width;
+        this.height = height;
+        boardArray = new int[width][height];
         this.players = players;
-        for (int i = 0; i < 2000; i++) {
-            for (int j = 0; j < 1000; j++) {
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
                 boardArray[i][j] = 0;
             }
         }
     }
 
-    public int getSize() {
-        return this.size;
+    public int getWidth() {
+        return this.width;
+    }
+
+    public int getHeight() {
+        return this.height;
     }
 
     public boolean checkSpace(Point position, int size) {           // sprawdza kilka punktow na graczu i cz nie jesy za blisko ściany
@@ -43,9 +51,9 @@ public class Board {
             return true;
         } else if (position.y - (double) size - 5 <= 0) {
             return true;
-        } else if (position.x + (double) size + 5 >= 2000) {
+        } else if (position.x + (double) size + 5 >= width) {
             return true;
-        } else if (position.y + (double) size + 5 >= 1000) {
+        } else if (position.y + (double) size + 5 >= height) {
             return true;
         }
         return false;

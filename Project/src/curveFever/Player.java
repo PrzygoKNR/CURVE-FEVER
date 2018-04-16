@@ -96,6 +96,7 @@ public class Player implements IDrawable {
             position[i].x = position[i - 1].x;
             position[i].y = position[i - 1].y;
         }
+
         if (isDead == false) {
             position[0].x += speed * Math.sin(Math.toRadians(angle));
             position[0].y += speed * Math.cos(Math.toRadians(angle));
