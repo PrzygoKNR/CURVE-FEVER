@@ -1,6 +1,7 @@
 package curveFever;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -9,13 +10,16 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.WindowEvent;
+
 import java.util.*;
 
 public class Main extends Application {
 
     private static Set<KeyCode> pressedKeys = new HashSet<KeyCode>();
+
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
 
         Group root = new Group();
         primaryStage.setTitle("Curve Fever");
@@ -26,20 +30,30 @@ public class Main extends Application {
 
         GameFacade gameFacade = new GameFacade(2, pressedKeys, gc);
 
-        scene.setOnKeyPressed(new EventHandler<KeyEvent>(){
+        // Obsługa zdarzeń
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
-            public void handle(KeyEvent event){
+            public void handle(WindowEvent event) {
+                Platform.exit();
+                System.exit(0);
+            }
+        });
+
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
                 pressedKeys.add(event.getCode());
             }
         });
 
-        scene.setOnKeyReleased(new EventHandler<KeyEvent>(){
+        scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
-            public void handle(KeyEvent event){
+            public void handle(KeyEvent event) {
                 pressedKeys.remove(event.getCode());
             }
         });
 
+        //dodawanie canvas oraz pokazywanie formularza
         root.getChildren().add(canvas);
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -50,8 +64,8 @@ public class Main extends Application {
         launch(args);
     }
 
-    public static void testKeyboardWork(){
-        for(KeyCode code: pressedKeys){
+    public static void testKeyboardWork() {
+        for (KeyCode code : pressedKeys) {
             System.out.print(code);
             System.out.print(" ");
         }
