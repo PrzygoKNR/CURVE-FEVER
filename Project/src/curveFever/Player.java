@@ -19,15 +19,19 @@ public class Player implements IDrawable{
     private KeyCode rightKey;
     private double angle;
     private double rotateStep;
-    private Point position;
+    private static int positionLenght = 40;
+    private Point[] position = new Point[positionLenght];
 
     public Player(Color color, KeyCode leftKey, KeyCode rightKey, Point startingPosition, double startingAngle) {
+
         this.playerID = maxId;
         maxId++;
         this.color = color;
         this.leftKey = leftKey;
         this.rightKey = rightKey;
-        this.position = startingPosition;
+        for(int i = 0; i < positionLenght; i++) {
+            position[i] = new Point( startingPosition.x, startingPosition.y);
+        }
         this.angle = startingAngle;
         size = sizeDefault;
         speed = speedDefault;
@@ -79,12 +83,35 @@ public class Player implements IDrawable{
 
     public void makeStep()
     {
-        position.x += speed * Math.sin(Math.toRadians(angle));
-        position.y += speed * Math.cos(Math.toRadians(angle));
+        for(int i = positionLenght - 1; i > 0; i--){
+            position[i].x = position[i-1].x;
+            position[i].y = position[i-1].y;
+        }
+        position[0].x += speed * Math.sin(Math.toRadians(angle));
+        position[0].y += speed * Math.cos(Math.toRadians(angle));
+
+        //positionTest();
     }
     public void draw(GraphicsContext gc){
-        gc.setFill(this.color);
-        gc.fillOval(this.position.x,this.position.y, size, size);
+        gc.setFill(Color.WHITE);
+        gc.fillOval(this.position[1].x,this.position[1].y, size+5, size+5);
         gc.restore();
+        gc.setFill(Color.GRAY);
+        gc.fillOval(this.position[0].x,this.position[0].y, size, size);
+        gc.restore();
+        gc.setFill(this.color);
+        gc.fillOval(this.position[7].x,this.position[7].y, size, size);
+        gc.restore();
+    }
+    private void positionTest() {
+        for (int i = 0; i < positionLenght; i++) {
+            System.out.print(i);
+            System.out.print(" ");
+            System.out.print(position[i].x);
+            System.out.print(" ");
+            System.out.print(position[i].y);
+            System.out.print("\n");
+        }
+        System.out.print("\n\n\n");
     }
 }

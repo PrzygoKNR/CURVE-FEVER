@@ -47,8 +47,8 @@ public class GameFacade {
                    public void run() {
                        for(Player player: players){
                            handlingObject.handleKeys(GameFacade.pressedKeys,player);
-                           player.draw(gc);
                            player.makeStep();
+                           player.draw(gc);
                        }
                    }
                });
