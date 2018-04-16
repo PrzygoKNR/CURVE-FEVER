@@ -53,9 +53,9 @@ public class GameFacade {
                        for(Player player: players){
                            handlingObject.handleKeys(GameFacade.pressedKeys,player);
                            player.makeStep();
-                           if(boardObject.checkSpace(player.getPosition(),player.getSize()) == true) {player.setIsDead(true);}
-                           player.draw(gc);
-                           boardObject.addTrace(player.getPositionForTrace(),player.getSize());
+                           if(boardObject.checkSpace(player.getPosition(),player.getSize()) == true) {player.setIsDead(true);}  //jak wykryje zderzenie to umarl a kto umarl ten nie żyje XD
+                           player.draw(gc);                                                         // rysowanie
+                           boardObject.addTrace(player.getPositionForTrace(),player.getSize());     //dodaje slad do tablicy
                        }
                    }
                });

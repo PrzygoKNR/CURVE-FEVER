@@ -23,7 +23,7 @@ public class Board {
         return this.size;
     }   
     
-    public boolean checkSpace(Point position, int size) {
+    public boolean checkSpace(Point position, int size) {           // sprawdza kilka punktow na graczu i cz nie jesy za blisko ściany
         int x = (int)position.x-1;  // bo w tablicy bedzie to przesuniete
         int y = (int)position.y-1;
         int r = size/2;
@@ -38,7 +38,7 @@ public class Board {
         else if (position.y + (double)size + 5 >= 1000) {return true;}
         return false;
     }
-    public void addTrace(Point position, int size) {
+    public void addTrace(Point position, int size) {                           // dodaje slad do tablicy
         int x = (int)position.x-1;  // bo w tablicy bedzie to przesuniete
         int y = (int)position.y-1;
         for(int i = 0; i < (size * 0.6); i++) {

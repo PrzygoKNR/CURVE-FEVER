@@ -87,7 +87,7 @@ public class Player implements IDrawable{
     }
 
     public Point getPosition() {
-        return position[0];
+        return position[0];                             // aktualna pozycja gracza
     }
 
     public void makeStep()
@@ -103,13 +103,13 @@ public class Player implements IDrawable{
         //positionTest();
     }
     public void draw(GraphicsContext gc){
-        gc.setFill(Color.WHITE);
+        gc.setFill(Color.WHITE);                                            //zakrywa stara pozycje gracza
         gc.fillOval(this.position[1].x,this.position[1].y, size, size);
         gc.restore();
-        gc.setFill(Color.GRAY);
+        gc.setFill(Color.GRAY);                                             //rysuje pozycje gracza
         gc.fillOval(this.position[0].x,this.position[0].y, size, size);
         gc.restore();
-        gc.setFill(this.color);
+        gc.setFill(this.color);                                             //rysuje slad
         gc.fillOval(this.position[7].x,this.position[7].y, size, size);
         gc.restore();
     }
