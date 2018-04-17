@@ -5,25 +5,23 @@ import javafx.scene.paint.Color;
 import javafx.scene.input.KeyCode;
 
 import java.lang.Math;
+import java.util.Random;
 
 public class Player implements IDrawable {
-    private final static Color emptyBoardColor = Color.WHITE;
-    private final static Color playerPointColor = Color.GREY;
     private static int maxId = 0;
     private int playerID;
     private Color color;
-    private static int sizeDefault = 10;
-    private static int speedDefault = 2;
-    private static int rotateDefault = 2;
-    private int size;
-    private int speed;
-    private boolean isDead;
+    private int size = CurveFeverConsts.PLAYER_DEFAULT_SIZE;
+    private int speed = CurveFeverConsts.PLAYER_DEFAULT_SPEED;
+    private boolean isDead = false;
     private KeyCode leftKey;
     private KeyCode rightKey;
     private double angle;
-    private double rotateStep;
-    private static int positionLength = 40;
-    private Point[] position = new Point[positionLength];
+    private double rotateStep = CurveFeverConsts.PLAYER_DEFAULT_ROTATE;
+    private Point[] positions = new Point[CurveFeverConsts.NUMBER_OF_POINTS_TO_STORE];
+    private int msCounter = 0;                              //licznik milisekund, do zmiany na rysowanie/nierysowanie śladu
+    private boolean isLineDrawing = true;
+    private int randomDeltaToDrawingLine = 0;
 
     public Player(Color color, KeyCode leftKey, KeyCode rightKey, Point startingPosition, double startingAngle) {
         this.playerID = maxId;
@@ -31,15 +29,18 @@ public class Player implements IDrawable {
         this.color = color;
         this.leftKey = leftKey;
         this.rightKey = rightKey;
-        for (int i = 0; i < positionLength; i++) {
-            position[i] = new Point(startingPosition.x, startingPosition.y);
+
+        for (int i = 0; i < positions.length; i++) {
+            positions[i] = new Point(startingPosition.x, startingPosition.y);
         }
 
         this.angle = startingAngle;
-        size = sizeDefault;
-        speed = speedDefault;
-        rotateStep = rotateDefault;
-        isDead = false;
+        setNewRandomDeltaToDrawingLine();
+    }
+
+    private void setNewRandomDeltaToDrawingLine() {
+        final double MAX_PERCENTAGE_TO_DELTA = 0.8;
+        randomDeltaToDrawingLine = (new Random()).nextInt((int) (CurveFeverConsts.MS_TO_DRAW_BREAK * MAX_PERCENTAGE_TO_DELTA));
     }
 
     private void rotate(double angle) {
@@ -50,6 +51,10 @@ public class Player implements IDrawable {
 
     public int getSize() {
         return this.size;
+    }
+
+    public boolean getIsLineDrawing() {
+        return this.isLineDrawing;
     }
 
     public void handleKey(KeyCode key) {
@@ -86,45 +91,65 @@ public class Player implements IDrawable {
     }
 
     public Point getPositionForTrace() {
-        return new Point(position[7].x, position[7].y); // pozycja w której rysujemy slad
+        return new Point(positions[7].x, positions[7].y); // pozycja w której rysujemy slad
     }
 
-    public Point getPosition() {
-        return position[0];                             // aktualna pozycja gracza
+    public Point getPositions() {
+        return positions[0];                             // aktualna pozycja gracza
     }
 
     public void makeStep() {
-        for (int i = positionLength - 1; i > 0; i--) {
-            position[i].x = position[i - 1].x;
-            position[i].y = position[i - 1].y;
+        for (int i = positions.length - 1; i > 0; i--) {
+            positions[i].x = positions[i - 1].x;
+            positions[i].y = positions[i - 1].y;
         }
 
         if (isDead == false) {
-            position[0].x += speed * Math.sin(Math.toRadians(angle));
-            position[0].y += speed * Math.cos(Math.toRadians(angle));
+            positions[0].x += speed * Math.sin(Math.toRadians(angle));
+            positions[0].y += speed * Math.cos(Math.toRadians(angle));
         }
+
+        if (!this.isDead) {
+            this.msCounter += CurveFeverConsts.TIME_OF_REFRESH_GRAPHICS;
+            if (this.msCounter > CurveFeverConsts.MS_TO_DRAW_BREAK - this.randomDeltaToDrawingLine) {
+                this.isLineDrawing = false;
+            }
+            if (this.msCounter > CurveFeverConsts.MS_TO_DRAW_BREAK + CurveFeverConsts.MS_TO_START_DRAWING - this.randomDeltaToDrawingLine) {
+                this.isLineDrawing = true;
+                this.msCounter = 0;
+                setNewRandomDeltaToDrawingLine();
+            }
+        }
+
         //positionTest();
     }
 
     public void draw(GraphicsContext gc) {
-        gc.setFill(emptyBoardColor);                                            //zakrywa stara pozycje gracza
-        gc.fillOval(this.position[1].x, this.position[1].y, size, size);
-        gc.restore();
-        gc.setFill(playerPointColor);                                             //rysuje pozycje gracza
-        gc.fillOval(this.position[0].x, this.position[0].y, size, size);
-        gc.restore();
-        gc.setFill(this.color);                                             //rysuje slad
-        gc.fillOval(this.position[7].x, this.position[7].y, size, size);
+        gc.setFill(CurveFeverConsts.EMPTY_BOARD_COLOR);                                            //zakrywa stara pozycje gracza
+        gc.fillOval(this.positions[1].x, this.positions[1].y, size, size);
+
+        gc.setFill(CurveFeverConsts.PLAYER_POINT_COLOR);                                             //rysuje pozycje gracza
+        gc.fillOval(this.positions[0].x, this.positions[0].y, size, size);
+
+        if (this.isLineDrawing) {
+            gc.setFill(this.color);                                             //rysuje slad
+            gc.fillOval(
+                    this.positions[CurveFeverConsts.PLAYER_MARGIN_BEETWEN_PLAYER_AND_LINE + this.size/2].x,
+                    this.positions[CurveFeverConsts.PLAYER_MARGIN_BEETWEN_PLAYER_AND_LINE + this.size/2].y,
+                    size,
+                    size);
+        }
+
         gc.restore();
     }
 
     private void positionTest() {
-        for (int i = 0; i < positionLength; i++) {
+        for (int i = 0; i < positions.length; i++) {
             System.out.print(i);
             System.out.print(" ");
-            System.out.print(position[i].x);
+            System.out.print(positions[i].x);
             System.out.print(" ");
-            System.out.print(position[i].y);
+            System.out.print(positions[i].y);
             System.out.print("\n");
         }
         System.out.print("\n\n\n");
