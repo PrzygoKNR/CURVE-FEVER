@@ -30,17 +30,17 @@ public class ConfigDialogController {
 
         for(int i=0; i<maxPlayerCount; i++) {
             int elementId = i+1;
-            HBox newHbox = new HBox(10);
-            newHbox.setId("player" + elementId + "HBox");
+            HBox newHBox = new HBox(10);
+            newHBox.setId("player" + elementId + "HBox");
 
             Button newButton = setupButton(elementId);
             TextField leftTextField = setupTextField(elementId, "left");
             TextField rightTextField = setupTextField(elementId, "right");;
 
-            newHbox.getChildren().add(newButton);
-            newHbox.getChildren().add(leftTextField);
-            newHbox.getChildren().add(rightTextField);
-            gridPaneOne.add(newHbox, 0, elementId);
+            newHBox.getChildren().add(newButton);
+            newHBox.getChildren().add(leftTextField);
+            newHBox.getChildren().add(rightTextField);
+            gridPaneOne.add(newHBox, 0, elementId);
         }
 
         clearTextFields();
@@ -52,8 +52,9 @@ public class ConfigDialogController {
         leftTextField.setAlignment(Pos.CENTER);
         leftTextField.setDisable(true);
 
-        leftTextField.setOnKeyReleased(event -> onTextFieldKeyReleased(event));
-        leftTextField.setOnMouseClicked(event -> onTextFieldMouseClicked(event));
+        leftTextField.setOnKeyReleased(this::onTextFieldKeyReleased);
+        leftTextField.setOnMouseClicked(this::onTextFieldMouseClicked);
+
         leftTextField.setPrefWidth(100);
         return leftTextField;
     }
@@ -70,20 +71,21 @@ public class ConfigDialogController {
     private void clearTextFields() {
         System.out.println("Clearing Fields");
 
-        gridPaneOne.getChildren().forEach(node -> {
-            ((HBox)node).getChildren().forEach(node1 -> {
-                if(node1.getClass().toString().equals("class javafx.scene.control.TextField")) {
-                    TextField textField = ((TextField)node1);
+        gridPaneOne.getChildren().stream()
+                .flatMap(hBox -> ((HBox)hBox).getChildren().stream())
+                .filter(hBoxChild ->
+                        hBoxChild.getClass()
+                        .equals(TextField.class))
+                .map(hBoxChild -> (TextField)hBoxChild)
+                .forEach(textField -> {
                     int textFieldId = getPlayerId(textField);
                     if(playersControls[textFieldId][0] == null || playersControls[textFieldId][1] == null) {
                         textField.setText("");
                         playersControls[textFieldId][0] = null;
                         playersControls[textFieldId][1] = null;
                     }
-                    node1.setDisable(true);
-                }
-            });
-        });
+                    textField.setDisable(true);
+                });
     }
 
     private boolean playerControlsContains(KeyCode keyCode) {
@@ -98,7 +100,10 @@ public class ConfigDialogController {
     }
 
     private int getPlayerId(TextField textField) {
-        return Integer.parseInt(Arrays.asList(textField.getId().split("\\D")).stream().filter(n -> !n.equals("")).findFirst().get()) - 1;
+        return Integer.parseInt(Arrays.stream(textField.getId().split("\\D"))
+                .filter(n -> !n.equals(""))
+                .findFirst()
+                .get()) - 1;
     }
 
     @FXML
@@ -126,13 +131,15 @@ public class ConfigDialogController {
     public void onButtonClicked(MouseEvent e) {
         clearTextFields();
         HBox hBox = (HBox)((Button)e.getSource()).getParent();
-        hBox.getChildren().forEach(node -> {
-            if(node.getClass().toString().equals("class javafx.scene.control.TextField")) {
-                System.out.println(node);
-                node.setDisable(false);
-                ((TextField)node).setText("Type a Key");
-            }
-        });
+
+        hBox.getChildren()
+                .parallelStream()
+                .filter(node -> node.getClass().equals(TextField.class))
+                .forEach(node -> {
+                    System.out.println(node);
+                    node.setDisable(false);
+                    ((TextField)node).setText("Type a Key");
+                });
     }
 
     @FXML
