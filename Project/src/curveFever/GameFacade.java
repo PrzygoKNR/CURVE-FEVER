@@ -38,6 +38,7 @@ public class GameFacade {
                 players.add(new Player(colors[i], keys[i][0], keys[i][1], startingPosition[i], startingAngle[i]));
             }
         }
+
         for (int i = 0; i < 10; i++) {            // przed rozpoczęciem wykonuje kilka ruchów żeby nie wykryło zderzenia i było wiadomo w którą stronę skierowanie są gracze
             for (Player player : players) {
                 player.makeStep();
@@ -45,6 +46,7 @@ public class GameFacade {
                 boardObject.addTrace(player.getPositionForTrace(), player.getSize());
             }
         }
+
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -52,18 +54,24 @@ public class GameFacade {
                     @Override
                     public void run() {
                         for (Player player : players) {
-                            handlingObject.handleKeys(GameFacade.pressedKeys, player);
-                            player.makeStep();
-                            if (boardObject.checkSpace(player.getPosition(), player.getSize()) == true) {
-                                player.setIsDead(true);
-                            }  // jak wykryje zderzenie to umarl a kto umarl ten nie żyje XD
-                            player.draw(gc);                                                          // rysowanie
-                            boardObject.addTrace(player.getPositionForTrace(), player.getSize());     // dodaje slad do tablicy
+                            if (!player.getIsDead()) {
+                                handlingObject.handleKeys(GameFacade.pressedKeys, player);
+                                player.makeStep();
+
+                                if (boardObject.checkSpace(player.getPositions(), player.getSize()) == true) {
+                                    player.setIsDead(true);
+                                }  // jak wykryje zderzenie to umarl a kto umarl ten nie żyje XD
+
+                                player.draw(gc);                                                              // rysowanie
+                                if (player.getIsLineDrawing()) {                                                //jeżeli linia jest w danym miejscu rysowana
+                                    boardObject.addTrace(player.getPositionForTrace(), player.getSize());     // dodaje slad do tablicy kolizji
+                                }
+                            }
                         }
                     }
                 });
             }
-        }, 0, 10);
+        }, 0, CurveFeverConsts.TIME_OF_REFRESH_GRAPHICS);
     }
 
     public Map<Integer, Integer> getScores() {
