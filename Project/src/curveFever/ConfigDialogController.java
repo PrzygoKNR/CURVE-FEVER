@@ -181,7 +181,6 @@ public class ConfigDialogController {
         }
 
 //        GameFacade gameFacade = new GameFacade(Main.widthOfForm, Main.heightOfForm, Main.pressedKeys, Main.gc, playersControls, maxPlayerCount);
-
         Stage stage = (Stage)gridPaneOne.getScene().getWindow();
         stage.close();
     }
@@ -194,9 +193,9 @@ public class ConfigDialogController {
 
     @FXML
     public void onExitClicked() {
+        playersControls = null;
         Stage stage = (Stage)gridPaneOne.getScene().getWindow();
         stage.close();
-        Platform.exit();
     }
 
     public static KeyCode[][] getPlayersControls() {

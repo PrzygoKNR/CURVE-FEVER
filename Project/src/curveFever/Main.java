@@ -18,11 +18,7 @@ import java.util.*;
 
 public class Main extends Application {
 
-    static Set<KeyCode> pressedKeys = new HashSet<KeyCode>();
-
-    static int widthOfForm;
-    static int heightOfForm;
-    static GraphicsContext gc;
+    private static Set<KeyCode> pressedKeys = new HashSet<KeyCode>();
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -39,21 +35,25 @@ public class Main extends Application {
 
         // pobieranie aktualnych wymiarów formularza
 
-        widthOfForm = (int)primaryStage.getWidth();
-        heightOfForm = (int)primaryStage.getHeight();
+        int widthOfForm = (int)primaryStage.getWidth();
+        int heightOfForm = (int)primaryStage.getHeight();
 
         // tworzenie kanwy rysunku o wymiarach formularza
 
         Canvas canvas = new Canvas(widthOfForm, heightOfForm);
-        gc = canvas.getGraphicsContext2D();
-
+        GraphicsContext gc = canvas.getGraphicsContext2D();
 
         Parent configRoot = FXMLLoader.load(getClass().getResource("ConfigDialog.fxml"));
         Stage configStage = new Stage();
         configStage.setTitle("Hello World");
         configStage.setScene(new Scene(configRoot , 500, 500));
+        configStage.setOnCloseRequest(event -> {Platform.exit(); System.exit(0);});
         configStage.showAndWait();
 
+        if(ConfigDialogController.getPlayersControls() == null) {
+            Platform.exit();
+            System.exit(0);
+        }
 
         GameFacade gameFacade = new GameFacade(widthOfForm, heightOfForm, pressedKeys, gc,
                 ConfigDialogController.getPlayersControls(), ConfigDialogController.getMaxPlayerCount());
