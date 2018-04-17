@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<BorderPane onKeyReleased="#onBorderPaneKeyReleased"
+            prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/8.0.121"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="curveFever.ConfigDialogController">
+
+    <center>
+        <GridPane fx:id="gridPaneOne" alignment="CENTER" hgap="10" vgap="10">
+
+
+        </GridPane>
+    </center>
+
+    <bottom>
+        <HBox alignment="BOTTOM_RIGHT" spacing="10">
+            <padding>
+                <Insets bottom="10" right="10" />
+            </padding>
+            <Button onMouseClicked="#onOkayClicked" prefWidth="90" text="Okay" />
+            <Button onMouseClicked="#onClearClicked" prefWidth="90" text="Clear" />
+            <Button onMouseClicked="#onExitClicked" prefWidth="90" text="Exit" />
+        </HBox>
+    </bottom>
+</BorderPane>
