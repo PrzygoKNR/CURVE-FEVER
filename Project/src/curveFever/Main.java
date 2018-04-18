@@ -57,7 +57,8 @@ public class Main extends Application {
         }
 
         GameFacade gameFacade = new GameFacade(widthOfForm, heightOfForm, pressedKeys, gc,
-                ConfigDialogController.getPlayersControls(), ConfigDialogController.getMaxPlayerCount());
+                ConfigDialogController.getPlayersControls(), ConfigDialogController.getMaxPlayerCount(),
+                ConfigDialogController.getPlayersColors());
 
         // Obsługa zdarzeń
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
