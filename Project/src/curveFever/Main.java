@@ -12,6 +12,7 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
 import java.util.*;
@@ -44,8 +45,8 @@ public class Main extends Application {
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         Parent configRoot = FXMLLoader.load(getClass().getResource("ConfigDialog.fxml"));
-        Stage configStage = new Stage();
-        configStage.setTitle("Hello World");
+        Stage configStage = new Stage(StageStyle.UNDECORATED);
+        configStage.setTitle("Normalnie nazwane OKIENKO");
         configStage.setScene(new Scene(configRoot , 500, 500));
         configStage.setOnCloseRequest(event -> {Platform.exit(); System.exit(0);});
         configStage.showAndWait();
