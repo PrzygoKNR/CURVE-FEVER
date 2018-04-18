@@ -4,13 +4,11 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -27,10 +25,45 @@ public class ConfigDialogController {
 
     @FXML
     private GridPane gridPaneOne;
+    @FXML
+    private BorderPane borderPane;
+    @FXML
+    private TextField maxPlayerCountTextField;
+    @FXML
+    private Button okayButton;
+    @FXML
+    private Button clearButton;
 
     @FXML
-    public void initialize() {
-        maxPlayerCount = 6;
+    public void onMaxPlayerCountButtonMouseClicked(MouseEvent event) {
+        String errorMessage = "Wrong number";
+        try {
+            maxPlayerCount = Integer.parseInt(maxPlayerCountTextField.getText());
+            if(maxPlayerCount < 2) {
+                errorMessage = "Number must be greater than 1";
+                throw new Exception("Number outside of bounds");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Wrong number");
+            alert.setHeaderText(errorMessage);
+            alert.showAndWait();
+            return;
+        }
+        okayButton.setDisable(false);
+        clearButton.setDisable(false);
+
+        Stage stage = (Stage)borderPane.getScene().getWindow();
+        stage.setHeight(150 + maxPlayerCount*30);
+        stage.setWidth(500);
+
+        initializeStuff();
+    }
+
+    private void initializeStuff() {
+        gridPaneOne.getChildren().clear();
         playersColors = new Color[maxPlayerCount];
         playersControls = new KeyCode[maxPlayerCount][2];
         setColorConstraints();
@@ -42,13 +75,12 @@ public class ConfigDialogController {
 
             Button button = setupButton(elementId);
             TextField leftTextField = setupTextField(elementId, "left");
-            TextField rightTextField = setupTextField(elementId, "right");;
+            TextField rightTextField = setupTextField(elementId, "right");
             ColorPicker colorPicker = setupColorPicker(elementId);
 
             newHBox.getChildren().add(button);
             newHBox.getChildren().add(leftTextField);
             newHBox.getChildren().add(rightTextField);
-
             newHBox.getChildren().add(colorPicker);
             gridPaneOne.add(newHBox, 0, elementId);
         }
@@ -59,7 +91,7 @@ public class ConfigDialogController {
     private void setColorConstraints() {
         colorConstraints = new HashSet<>();
         colorConstraints.add(Color.WHITE);
-
+        //more colors not allowed for players
     }
 
     private ColorPicker setupColorPicker(int colorPickerId) {
@@ -71,22 +103,22 @@ public class ConfigDialogController {
     }
 
     private TextField setupTextField(int textFieldId, String direction) {
-        TextField leftTextField = new TextField();
-        leftTextField.setId(direction + "Player" + textFieldId + "Control");
-        leftTextField.setAlignment(Pos.CENTER);
-        leftTextField.setDisable(true);
+        TextField textField = new TextField();
+        textField.setId(direction + "Player" + textFieldId + "Control");
+        textField.setAlignment(Pos.CENTER);
+        textField.setDisable(true);
 
-        leftTextField.setOnKeyReleased(this::onTextFieldKeyReleased);
-        leftTextField.setOnMouseClicked(this::onTextFieldMouseClicked);
+        textField.setOnKeyReleased(this::onTextFieldKeyReleased);
+        textField.setOnMouseClicked(this::onTextFieldMouseClicked);
 
-        leftTextField.setPrefWidth(100);
-        return leftTextField;
+        textField.setPrefWidth(100);
+        return textField;
     }
 
     private Button setupButton(int buttonId) {
         Button button = new Button("Player " + buttonId);
         button.setId("player" + buttonId + "Button");
-        button.setPrefWidth(80);
+        button.setPrefWidth(90);
 
         button.setOnMouseClicked(this::onButtonClicked);
         return button;
@@ -262,8 +294,6 @@ public class ConfigDialogController {
             System.out.println();
         }
 
-
-//        GameFacade gameFacade = new GameFacade(Main.widthOfForm, Main.heightOfForm, Main.pressedKeys, Main.gc, playersControls, maxPlayerCount);
         Stage stage = (Stage)gridPaneOne.getScene().getWindow();
         stage.close();
     }

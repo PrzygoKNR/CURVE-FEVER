@@ -5,31 +5,32 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane onKeyReleased="#onBorderPaneKeyReleased"
-            prefHeight="400.0" prefWidth="600.0"
-            xmlns="http://javafx.com/javafx/8.0.121"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="curveFever.ConfigDialogController">
+<BorderPane fx:id="borderPane" onKeyReleased="#onBorderPaneKeyReleased" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="curveFever.ConfigDialogController">
 
+    <top>
+        <HBox alignment="CENTER" spacing="10">
+            <padding>
+                <Insets bottom="10" top="10" />
+            </padding>
+            <Label text="Set max players count" />
+            <TextField fx:id="maxPlayerCountTextField" prefHeight="25.0" prefWidth="40.0" text="2" alignment="CENTER" />
+            <Button onMouseClicked="#onMaxPlayerCountButtonMouseClicked" text="OK" />
+        </HBox>
+    </top>
     <center>
-        <GridPane fx:id="gridPaneOne" alignment="CENTER" hgap="10" vgap="10">
-
-
-        </GridPane>
+        <GridPane fx:id="gridPaneOne" alignment="CENTER" hgap="10" vgap="10" />
     </center>
 
     <bottom>
         <HBox alignment="BOTTOM_RIGHT" spacing="10">
             <padding>
-                <Insets bottom="10" right="10" />
+                <Insets bottom="10" right="10" top="10" />
             </padding>
-            <Button onMouseClicked="#onOkayClicked" prefWidth="90" text="Okay" />
-            <Button onMouseClicked="#onClearClicked" prefWidth="90" text="Clear" />
+            <Button fx:id="okayButton" disable="true" onMouseClicked="#onOkayClicked" prefWidth="90" text="Okay" />
+            <Button fx:id="clearButton" disable="true" onMouseClicked="#onClearClicked" prefWidth="90" text="Clear" />
             <Button onMouseClicked="#onExitClicked" prefWidth="90" text="Exit" />
         </HBox>
     </bottom>

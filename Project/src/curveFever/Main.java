@@ -45,9 +45,9 @@ public class Main extends Application {
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         Parent configRoot = FXMLLoader.load(getClass().getResource("ConfigDialog.fxml"));
-        Stage configStage = new Stage(StageStyle.UNDECORATED);
+        Stage configStage = new Stage(StageStyle.UTILITY);
         configStage.setTitle("Normalnie nazwane OKIENKO");
-        configStage.setScene(new Scene(configRoot , 500, 500));
+        configStage.setScene(new Scene(configRoot));
         configStage.setOnCloseRequest(event -> {Platform.exit(); System.exit(0);});
         configStage.showAndWait();
 
