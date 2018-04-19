@@ -4,18 +4,22 @@ import curveFever.configDialog.ConfigDialogController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Dimension2D;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
+import java.awt.*;
 import java.util.*;
 
 public class Main extends Application {
@@ -31,14 +35,14 @@ public class Main extends Application {
         primaryStage.setMaximized(true);
         primaryStage.show();
 
-        Scene scene = new Scene(root, 2000, 1000);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Scene scene = new Scene(root, screenSize.getWidth(), screenSize.getHeight());
         primaryStage.setScene(scene);
-//        primaryStage.show();
 
         // pobieranie aktualnych wymiarów formularza
 
-        int widthOfForm = (int)primaryStage.getWidth();
-        int heightOfForm = (int)primaryStage.getHeight();
+        int widthOfForm = (int)screenSize.getWidth();
+        int heightOfForm = (int)screenSize.getHeight();
 
         // tworzenie kanwy rysunku o wymiarach formularza
 

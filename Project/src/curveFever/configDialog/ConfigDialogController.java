@@ -1,8 +1,6 @@
 package curveFever.configDialog;
 
-import curveFever.configDialog.languages.ConfigGUILanguage;
-import curveFever.configDialog.languages.ConfigGUILanguageARB;
-import curveFever.configDialog.languages.ConfigGUILanguageENG;
+import curveFever.languages.*;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -20,9 +18,6 @@ import javafx.stage.Stage;
 
 import java.util.*;
 
-enum InterfaceLanguages {
-    ENGLISH, ARABIC
-}
 
 public class ConfigDialogController {
 
@@ -31,6 +26,9 @@ public class ConfigDialogController {
     private static int maxPlayerNumber;
     private Set<Color> colorConstraints;
     private ConfigGUILanguage interfaceLanguage;
+    private int dialogWidth;
+    private int buttonWidth;
+    private int textFieldWidth;
 
     @FXML
     private BorderPane borderPane;
@@ -57,7 +55,7 @@ public class ConfigDialogController {
     public void initialize() {
         languageComboList.addAll(InterfaceLanguages.values());
         languageComboBox.setValue(InterfaceLanguages.ENGLISH);
-        setLanguage();
+        onLanguageComboBoxHidden();
         setColorConstraints();
     }
 
@@ -72,10 +70,30 @@ public class ConfigDialogController {
         switch(interfaceLanguages) {
             case ARABIC:
                 interfaceLanguage = new ConfigGUILanguageARB();
+                dialogWidth = 500;
+                buttonWidth = 90;
+                textFieldWidth = 100;
                 break;
 
             case ENGLISH:
                 interfaceLanguage = new ConfigGUILanguageENG();
+                dialogWidth = 500;
+                buttonWidth = 90;
+                textFieldWidth = 100;
+                break;
+
+            case IGBO:
+                interfaceLanguage = new ConfigGUILanguage("language-Igbo.txt", InterfaceLanguages.IGBO);
+                dialogWidth = 550;
+                buttonWidth = 150;
+                textFieldWidth = 100;
+                break;
+
+            case POLISH:
+                interfaceLanguage = new ConfigGUILanguage("language-Polish.txt", InterfaceLanguages.POLISH);
+                dialogWidth = 540;
+                buttonWidth = 90;
+                textFieldWidth = 120;
                 break;
         }
     }
@@ -89,7 +107,6 @@ public class ConfigDialogController {
                 errorMessage = interfaceLanguage.numberOutOfBound();
                 throw new Exception("Number outside of bounds");
             }
-
         } catch (Exception e) {
             e.printStackTrace();
             displayAlert(interfaceLanguage.wrongNumber(), errorMessage);
@@ -101,7 +118,7 @@ public class ConfigDialogController {
 
         Stage stage = (Stage)borderPane.getScene().getWindow();
         stage.setHeight(150 + maxPlayerNumber *35);
-        stage.setWidth(500);
+        stage.setWidth(dialogWidth);
 
         System.out.println(maxPlayerNumber);
         setupWindowComponents();
@@ -134,8 +151,8 @@ public class ConfigDialogController {
             newHBox.getChildren().add(colorPicker);
             gridPaneOne.add(newHBox, 0, elementId);
         }
+
         setConstantElementsText();
-//        resetGridPaneChildren();
     }
 
     private void setConstantElementsText() {
@@ -145,8 +162,13 @@ public class ConfigDialogController {
         maxNumberLabel.setText(interfaceLanguage.setMaxNumberOfPlayer());
         maxNumberOkButton.setText(interfaceLanguage.ok());
 
-        Stage stage = (Stage)borderPane.getScene().getWindow();
-        stage.setTitle(interfaceLanguage.dialogTitle());
+        try {
+            Stage stage = (Stage)borderPane.getScene().getWindow();
+            stage.setTitle(interfaceLanguage.dialogTitle());
+            stage.setWidth(dialogWidth);
+        } catch (Exception e) {
+            System.out.println("Couldn't get the stage");
+        }
     }
 
     private void setColorConstraints() {
@@ -160,6 +182,7 @@ public class ConfigDialogController {
         colorPicker.setId("player" + colorPickerId + "colorPicker");
 
         colorPicker.setOnHidden(this::onColorPickerHidden);
+        colorPicker.setDisable(true);
         return colorPicker;
     }
 
@@ -172,14 +195,14 @@ public class ConfigDialogController {
         textField.setOnKeyReleased(this::onTextFieldKeyReleased);
         textField.setOnMouseClicked(this::onTextFieldMouseClicked);
 
-        textField.setPrefWidth(100);
+        textField.setPrefWidth(textFieldWidth);
         return textField;
     }
 
     private Button setupButton(int buttonId) {
         Button button = new Button(interfaceLanguage.player() + " " + buttonId);
         button.setId("player" + buttonId + "Button");
-        button.setPrefWidth(90);
+        button.setPrefWidth(buttonWidth);
 
         button.setOnMouseClicked(this::onButtonClicked);
         return button;
