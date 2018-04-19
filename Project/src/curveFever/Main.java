@@ -1,5 +1,6 @@
 package curveFever;
 
+import curveFever.configDialog.ConfigDialogController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -44,11 +45,12 @@ public class Main extends Application {
         Canvas canvas = new Canvas(widthOfForm, heightOfForm);
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        Parent configRoot = FXMLLoader.load(getClass().getResource("ConfigDialog.fxml"));
+        Parent configRoot = FXMLLoader.load(getClass().getResource("configDialog/ConfigDialog.fxml"));
         Stage configStage = new Stage(StageStyle.UTILITY);
         configStage.setTitle("Normalnie nazwane OKIENKO");
-        configStage.setScene(new Scene(configRoot));
+        configStage.setScene(new Scene(configRoot, 500, 100));
         configStage.setOnCloseRequest(event -> {Platform.exit(); System.exit(0);});
+        configStage.setResizable(false);
         configStage.showAndWait();
 
         if(ConfigDialogController.getPlayersControls() == null) {
@@ -57,7 +59,7 @@ public class Main extends Application {
         }
 
         GameFacade gameFacade = new GameFacade(widthOfForm, heightOfForm, pressedKeys, gc,
-                ConfigDialogController.getPlayersControls(), ConfigDialogController.getMaxPlayerCount(),
+                ConfigDialogController.getPlayersControls(), ConfigDialogController.getMaxPlayerNumber(),
                 ConfigDialogController.getPlayersColors());
 
         // Obsługa zdarzeń

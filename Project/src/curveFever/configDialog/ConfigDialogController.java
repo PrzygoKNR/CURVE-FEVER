@@ -1,5 +1,9 @@
-package curveFever;
+package curveFever.configDialog;
 
+import curveFever.configDialog.languages.ConfigGUILanguage;
+import curveFever.configDialog.languages.ConfigGUILanguageARB;
+import curveFever.configDialog.languages.ConfigGUILanguageENG;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -16,59 +20,105 @@ import javafx.stage.Stage;
 
 import java.util.*;
 
+enum InterfaceLanguages {
+    ENGLISH, ARABIC
+}
+
 public class ConfigDialogController {
 
     private static KeyCode[][] playersControls;
     private static Color[] playersColors;
-    private static int maxPlayerCount;
+    private static int maxPlayerNumber;
     private Set<Color> colorConstraints;
+    private ConfigGUILanguage interfaceLanguage;
 
-    @FXML
-    private GridPane gridPaneOne;
     @FXML
     private BorderPane borderPane;
     @FXML
-    private TextField maxPlayerCountTextField;
+    private GridPane gridPaneOne;
+    @FXML
+    private Label maxNumberLabel;
+    @FXML
+    private Button maxNumberOkButton;
+    @FXML
+    private TextField maxPlayerNumberTextField;
+    @FXML
+    private ComboBox<InterfaceLanguages> languageComboBox;
+    @FXML
+    private ObservableList<InterfaceLanguages> languageComboList;
     @FXML
     private Button okayButton;
     @FXML
     private Button clearButton;
+    @FXML
+    private Button exitButton;
 
     @FXML
-    public void onMaxPlayerCountButtonMouseClicked(MouseEvent event) {
-        String errorMessage = "Wrong number";
+    public void initialize() {
+        languageComboList.addAll(InterfaceLanguages.values());
+        languageComboBox.setValue(InterfaceLanguages.ENGLISH);
+        setLanguage();
+        setColorConstraints();
+    }
+
+    @FXML
+    public void onLanguageComboBoxHidden() {
+        setLanguage();
+        setupWindowComponents();
+    }
+
+    private void setLanguage() {
+        InterfaceLanguages interfaceLanguages = languageComboBox.getValue();
+        switch(interfaceLanguages) {
+            case ARABIC:
+                interfaceLanguage = new ConfigGUILanguageARB();
+                break;
+
+            case ENGLISH:
+                interfaceLanguage = new ConfigGUILanguageENG();
+                break;
+        }
+    }
+
+    @FXML
+    public void onMaxPlayerNumberButtonMouseClicked() {
+        String errorMessage = interfaceLanguage.wrongNumber();
         try {
-            maxPlayerCount = Integer.parseInt(maxPlayerCountTextField.getText());
-            if(maxPlayerCount < 2) {
-                errorMessage = "Number must be greater than 1";
+            maxPlayerNumber = Integer.parseInt(maxPlayerNumberTextField.getText().trim());
+            if(maxPlayerNumber < 2) {
+                errorMessage = interfaceLanguage.numberOutOfBound();
                 throw new Exception("Number outside of bounds");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Wrong number");
-            alert.setHeaderText(errorMessage);
-            alert.showAndWait();
+            displayAlert(interfaceLanguage.wrongNumber(), errorMessage);
+            maxPlayerNumberTextField.setText("2");
             return;
         }
         okayButton.setDisable(false);
         clearButton.setDisable(false);
 
         Stage stage = (Stage)borderPane.getScene().getWindow();
-        stage.setHeight(150 + maxPlayerCount*30);
+        stage.setHeight(150 + maxPlayerNumber *35);
         stage.setWidth(500);
 
-        initializeStuff();
+        System.out.println(maxPlayerNumber);
+        setupWindowComponents();
     }
 
-    private void initializeStuff() {
-        gridPaneOne.getChildren().clear();
-        playersColors = new Color[maxPlayerCount];
-        playersControls = new KeyCode[maxPlayerCount][2];
-        setColorConstraints();
+    @FXML
+    public void onMaxPlayerNumberTextFieldKeyPressed(KeyEvent keyEvent) {
+        if(keyEvent.getCode().equals(KeyCode.ENTER))
+            onMaxPlayerNumberButtonMouseClicked();
+    }
 
-        for(int i=0; i<maxPlayerCount; i++) {
+    private void setupWindowComponents() {
+        gridPaneOne.getChildren().clear();
+        playersColors = new Color[maxPlayerNumber];
+        playersControls = new KeyCode[maxPlayerNumber][2];
+
+        for(int i = 0; i< maxPlayerNumber; i++) {
             int elementId = i+1;
             HBox newHBox = new HBox(10);
             newHBox.setId("player" + elementId + "HBox");
@@ -84,8 +134,19 @@ public class ConfigDialogController {
             newHBox.getChildren().add(colorPicker);
             gridPaneOne.add(newHBox, 0, elementId);
         }
+        setConstantElementsText();
+//        resetGridPaneChildren();
+    }
 
-        resetGridPaneChildren();
+    private void setConstantElementsText() {
+        okayButton.setText(interfaceLanguage.ok());
+        clearButton.setText(interfaceLanguage.clear());
+        exitButton.setText(interfaceLanguage.exit());
+        maxNumberLabel.setText(interfaceLanguage.setMaxNumberOfPlayer());
+        maxNumberOkButton.setText(interfaceLanguage.ok());
+
+        Stage stage = (Stage)borderPane.getScene().getWindow();
+        stage.setTitle(interfaceLanguage.dialogTitle());
     }
 
     private void setColorConstraints() {
@@ -116,7 +177,7 @@ public class ConfigDialogController {
     }
 
     private Button setupButton(int buttonId) {
-        Button button = new Button("Player " + buttonId);
+        Button button = new Button(interfaceLanguage.player() + " " + buttonId);
         button.setId("player" + buttonId + "Button");
         button.setPrefWidth(90);
 
@@ -196,10 +257,7 @@ public class ConfigDialogController {
         ColorPicker colorPicker = (ColorPicker)event.getSource();
         Color color = colorPicker.getValue();
         if(playerColorsCheck(color)) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Color unavailable");
-            alert.setHeaderText("Wrong Color");
-            alert.showAndWait();
+            displayAlert(interfaceLanguage.colorUnavailable(), interfaceLanguage.wrongColor());
             colorPicker.setValue(Color.WHITE);
             return;
         }
@@ -214,7 +272,7 @@ public class ConfigDialogController {
         System.out.println(keyEvent.getCode());
         TextField textField = (TextField)keyEvent.getSource();
         if(playerControlsContains(keyEvent.getCode())) {
-            textField.setText("Key in use");
+            textField.setText(interfaceLanguage.keyInUse());
             return;
         }
 
@@ -240,7 +298,7 @@ public class ConfigDialogController {
                 .parallelStream()
                 .forEach(node -> {
                     if(node.getClass().equals(TextField.class)) {
-                        ((TextField)node).setText("Type a Key");
+                        ((TextField)node).setText(interfaceLanguage.typeAKey());
                     } else if(node.getClass().equals(ColorPicker.class)) {
                         ((ColorPicker)node).setValue(Color.WHITE);
                     }
@@ -262,7 +320,7 @@ public class ConfigDialogController {
     }
 
     private boolean isConfigIncomplete() {
-        int playerCount = 0;
+        int playerAmount = 0;
         boolean flag1;
         boolean flag2;
         for(int i=0; i<playersControls.length; i++) {
@@ -272,9 +330,9 @@ public class ConfigDialogController {
             if(playersControls[i][0] == null) flag1 = true;
             if(playersControls[i][1] == null) flag2 = true;
             if(flag1 != flag2) return true;
-            if(!flag1) playerCount++;
+            if(!flag1) playerAmount++;
         }
-        if(playerCount < 2) return true;
+        if(playerAmount < 2) return true;
         else return false;
     }
 
@@ -300,7 +358,7 @@ public class ConfigDialogController {
 
     @FXML
     public void onClearClicked(){
-        playersControls = new KeyCode[maxPlayerCount][2];
+        playersControls = new KeyCode[maxPlayerNumber][2];
         resetGridPaneChildren();
     }
 
@@ -311,12 +369,19 @@ public class ConfigDialogController {
         stage.close();
     }
 
+    private void displayAlert(String title, String header) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.showAndWait();
+    }
+
     public static KeyCode[][] getPlayersControls() {
         return playersControls;
     }
 
-    public static int getMaxPlayerCount() {
-        return maxPlayerCount;
+    public static int getMaxPlayerNumber() {
+        return maxPlayerNumber;
     }
 
     public static Color[] getPlayersColors() {
