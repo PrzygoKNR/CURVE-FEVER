@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+import java.awt.*;
 import java.security.Key;
 import java.util.*;
 import java.util.List;
@@ -30,19 +31,29 @@ public class GameFacade {
         //Create static keys, colors, starting points and angles
 //        Color[] colors = {Color.RED, Color.GREEN, Color.BLUE, Color.ORANGE, Color.CORAL, Color.PINK};                                         deprecated
 //        KeyCode[][] keys = {{KeyCode.LEFT, KeyCode.RIGHT}, {KeyCode.Z, KeyCode.X}, {KeyCode.B, KeyCode.N}, {KeyCode.DIGIT1, KeyCode.DIGIT2}}; deprecated
-        Point[] startingPosition = {new Point(200, 300), new Point(300, 500), new Point(1000, 400),
-                                new Point(700, 200), new Point(500, 500), new Point(800, 800)};
-        Double[] startingAngle = {200.0, 100.0, 0.0, 300.0, 100.0, 90.0};
+        Random random = new Random();
+//        Point[] startingPosition = {new Point(200, 300), new Point(300, 500), new Point(1000, 400),
+//                                new Point(700, 200), new Point(500, 500), new Point(800, 800)};
+//        Double[] startingAngle = {200.0, 100.0, 0.0, 300.0, 100.0, 90.0};
 
         if (maxNumberOfPlayers > 6) {
             throw new IllegalArgumentException();
         } else {
+
             for (int i = 0; i < maxNumberOfPlayers; i++) {
-                if(playersControls[i][0] == (null)) {
+                if (playersControls[i][0] == (null)) {
                     System.out.println("NUUUULLL");
                     continue;
                 }
-                players.add(new Player(colors[i], playersControls[i][0], playersControls[i][1], startingPosition[i], startingAngle[i]));
+                Point startingPoint = new Point(
+                        random.nextInt(width - CurveFeverConsts.PLAYER_DEFAULT_SIZE * 20) + CurveFeverConsts.PLAYER_DEFAULT_SIZE * 20,
+                        random.nextInt(height - CurveFeverConsts.PLAYER_DEFAULT_SIZE * 20) + CurveFeverConsts.PLAYER_DEFAULT_SIZE * 20);
+
+                players.add(new Player(colors[i],
+                        playersControls[i][0],
+                        playersControls[i][1],
+                        startingPoint,
+                        random.nextInt(359)));
             }
         }
 

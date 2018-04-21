@@ -41,8 +41,8 @@ public class Main extends Application {
 
         // pobieranie aktualnych wymiarów formularza
 
-        int widthOfForm = (int)screenSize.getWidth();
-        int heightOfForm = (int)screenSize.getHeight();
+        int widthOfForm = (int) screenSize.getWidth();
+        int heightOfForm = (int) screenSize.getHeight();
 
         // tworzenie kanwy rysunku o wymiarach formularza
 
@@ -53,11 +53,14 @@ public class Main extends Application {
         Stage configStage = new Stage(StageStyle.UTILITY);
         configStage.setTitle("Normalnie nazwane OKIENKO");
         configStage.setScene(new Scene(configRoot, 500, 100));
-        configStage.setOnCloseRequest(event -> {Platform.exit(); System.exit(0);});
+        configStage.setOnCloseRequest(event -> {
+            Platform.exit();
+            System.exit(0);
+        });
         configStage.setResizable(false);
         configStage.showAndWait();
 
-        if(ConfigDialogController.getPlayersControls() == null) {
+        if (ConfigDialogController.getPlayersControls() == null) {
             Platform.exit();
             System.exit(0);
         }

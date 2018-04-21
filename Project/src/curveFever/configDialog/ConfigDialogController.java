@@ -103,14 +103,14 @@ public class ConfigDialogController {
         String errorMessage = interfaceLanguage.wrongNumber();
         try {
             maxPlayerNumber = Integer.parseInt(maxPlayerNumberTextField.getText().trim());
-            if(maxPlayerNumber < 2) {
+            if(maxPlayerNumber < 1) {
                 errorMessage = interfaceLanguage.numberOutOfBound();
-                throw new Exception("Number outside of bounds");
+                throw new IndexOutOfBoundsException("Number outside of bounds");
             }
         } catch (Exception e) {
             e.printStackTrace();
             displayAlert(interfaceLanguage.wrongNumber(), errorMessage);
-            maxPlayerNumberTextField.setText("2");
+            maxPlayerNumberTextField.setText("1");
             return;
         }
         okayButton.setDisable(false);
