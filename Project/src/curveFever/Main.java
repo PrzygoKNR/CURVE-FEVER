@@ -51,6 +51,7 @@ public class Main extends Application {
 
         Parent configRoot = FXMLLoader.load(getClass().getResource("configDialog/ConfigDialog.fxml"));
         Stage configStage = new Stage(StageStyle.UTILITY);
+        configStage.initOwner(primaryStage);
         configStage.setTitle("Normalnie nazwane OKIENKO");
         configStage.setScene(new Scene(configRoot, 500, 100));
         configStage.setOnCloseRequest(event -> {

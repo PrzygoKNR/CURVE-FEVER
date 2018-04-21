@@ -67,7 +67,64 @@
     <favorites_list name="JavaFxApplication" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="PIO.iml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/PIO.iml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="17" lean-forward="true" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ConfigDialog.fxml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/curveFever/configDialog/ConfigDialog.fxml">
+          <provider editor-type-id="JavaFX-Scene-Builder">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="565">
+              <caret line="44" column="68" lean-forward="false" selection-start-line="44" selection-start-column="54" selection-end-line="44" selection-end-column="68" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GameFacade.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/curveFever/GameFacade.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="20" column="36" lean-forward="true" selection-start-line="20" selection-start-column="36" selection-end-line="20" selection-end-column="36" />
+              <folding>
+                <element signature="e#2803#4098#0" expanded="true" />
+                <element signature="e#4097#4098#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ConfigDialogController.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/curveFever/configDialog/ConfigDialogController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="56" column="0" lean-forward="false" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/curveFever/Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="561">
+              <caret line="53" column="42" lean-forward="false" selection-start-line="53" selection-start-column="42" selection-end-line="53" selection-end-column="42" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -116,7 +173,6 @@
         <option value="$PROJECT_DIR$/src/CurveFever/Handling.java" />
         <option value="$PROJECT_DIR$/src/CurveFever/Main.java" />
         <option value="$PROJECT_DIR$/src/curveFever/Board.java" />
-        <option value="$PROJECT_DIR$/src/curveFever/GameFacade.java" />
         <option value="$PROJECT_DIR$/src/curveFever/InterfaceLanguage.java" />
         <option value="$PROJECT_DIR$/src/GUILanguageENG.java" />
         <option value="$PROJECT_DIR$/src/curveFever/GUIInterfaceLanguage.java" />
@@ -127,7 +183,6 @@
         <option value="$PROJECT_DIR$/src/curveFever/ConfigGUILanguage.java" />
         <option value="$PROJECT_DIR$/src/curveFever/ConfigDialog.fxml" />
         <option value="$PROJECT_DIR$/src/curveFever/ConfigDialogController.java" />
-        <option value="$PROJECT_DIR$/src/curveFever/configDialog/ConfigDialog.fxml" />
         <option value="$PROJECT_DIR$/src/curveFever/configDialog/languages/ddassad.java" />
         <option value="$PROJECT_DIR$/src/curveFever/configDialog/languages/myWritingTest.txt" />
         <option value="$PROJECT_DIR$/src/curveFever/configDialog/languages/resources/chinese" />
@@ -144,10 +199,12 @@
         <option value="$PROJECT_DIR$/src/curveFever/languages/ConfigGUILanguageARB.java" />
         <option value="$PROJECT_DIR$/src/curveFever/languages/ConfigGUILanguageENG.java" />
         <option value="$PROJECT_DIR$/src/curveFever/languages/ConfigGUILanguage.java" />
-        <option value="$PROJECT_DIR$/src/curveFever/configDialog/ConfigDialogController.java" />
         <option value="$PROJECT_DIR$/src/curveFever/languages/GUILanguage.java" />
         <option value="$PROJECT_DIR$/src/curveFever/Player.java" />
         <option value="$PROJECT_DIR$/src/curveFever/Main.java" />
+        <option value="$PROJECT_DIR$/src/curveFever/configDialog/ConfigDialog.fxml" />
+        <option value="$PROJECT_DIR$/src/curveFever/GameFacade.java" />
+        <option value="$PROJECT_DIR$/src/curveFever/configDialog/ConfigDialogController.java" />
       </list>
     </option>
   </component>
@@ -183,6 +240,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="AndroidView" />
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -208,28 +268,10 @@
               <item name="curveFever" type="462c0819:PsiDirectoryNode" />
               <item name="configDialog" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="Project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Project" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="curveFever" type="462c0819:PsiDirectoryNode" />
-              <item name="languages" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Project" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="curveFever" type="462c0819:PsiDirectoryNode" />
-              <item name="languages" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="AndroidView" />
-      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -293,8 +335,8 @@
         </pattern>
       </extension>
       <option name="MAIN_CLASS_NAME" value="curveFever.Main" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
+      <option name="VM_PARAMETERS" value="-Dprism.allowhidpi=false" />
+      <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
@@ -424,6 +466,7 @@
       <workItem from="1524144577314" duration="932000" />
       <workItem from="1524158122036" duration="1158000" />
       <workItem from="1524159765538" duration="2393000" />
+      <workItem from="1524327909356" duration="1708000" />
     </task>
     <task id="LOCAL-00001" summary="Dodano plik klasy dla kilku klas, dokończono szkielet klasy Player, dodano obsługę zdarzenia z klawiatury">
       <created>1523139599481</created>
@@ -436,10 +479,11 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="54749000" />
+    <option name="totallyTimeSpent" value="56457000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1696" height="1026" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -450,11 +494,11 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3997879" sideWeight="0.5104167" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24096386" sideWeight="0.47447917" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24096386" sideWeight="0.47447917" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.175" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.175" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -554,9 +598,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="63">
           <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -592,9 +634,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="84">
           <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -612,7 +652,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/out/production/PIO/curveFever/Board.class" />
+    <entry file="file://$PROJECT_DIR$/out/production/PIO/CurveFever/Board.class" />
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_161/javafx-src.zip!/com/sun/glass/ui/win/WinApplication.java" />
     <entry file="file://$PROJECT_DIR$/src/curveFever/BonusType.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -706,34 +746,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="1" lean-forward="true" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/curveFever/configDialog/languages/ConfigGUILanguagePL.java" />
     <entry file="file://$PROJECT_DIR$/src/curveFever/configDialog/languages/ConfigGUILanguageIGO.java" />
-    <entry file="file://$PROJECT_DIR$/src/curveFever/configDialog/ConfigDialog.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="25" column="94" lean-forward="true" selection-start-line="25" selection-start-column="94" selection-end-line="25" selection-end-column="94" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/curveFever/languages/resources/language-Polish.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
           <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PIO.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -749,27 +770,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="49" lean-forward="false" selection-start-line="5" selection-start-column="49" selection-end-line="5" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/curveFever/languages/ConfigGUILanguage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="36" lean-forward="false" selection-start-line="9" selection-start-column="36" selection-end-line="9" selection-end-column="36" />
-          <folding>
-            <element signature="e#119#120#0" expanded="true" />
-            <element signature="e#142#143#0" expanded="true" />
-            <element signature="e#224#225#0" expanded="true" />
-            <element signature="e#269#270#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/curveFever/configDialog/ConfigDialogController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="67" column="28" lean-forward="false" selection-start-line="67" selection-start-column="17" selection-end-line="67" selection-end-column="28" />
           <folding />
         </state>
       </provider>
@@ -800,7 +800,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -815,26 +814,69 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/curveFever/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1275">
+          <caret line="100" column="16" lean-forward="false" selection-start-line="100" selection-start-column="16" selection-end-line="100" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/curveFever/languages/ConfigGUILanguage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="9" column="36" lean-forward="false" selection-start-line="9" selection-start-column="36" selection-end-line="9" selection-end-column="36" />
+          <folding>
+            <element signature="e#119#120#0" expanded="true" />
+            <element signature="e#142#143#0" expanded="true" />
+            <element signature="e#224#225#0" expanded="true" />
+            <element signature="e#269#270#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PIO.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="17" lean-forward="true" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/curveFever/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="35" column="28" lean-forward="true" selection-start-line="35" selection-start-column="28" selection-end-line="35" selection-end-column="28" />
+        <state relative-caret-position="561">
+          <caret line="53" column="42" lean-forward="false" selection-start-line="53" selection-start-column="42" selection-end-line="53" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/curveFever/configDialog/ConfigDialog.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="565">
+          <caret line="44" column="68" lean-forward="false" selection-start-line="44" selection-start-column="54" selection-end-line="44" selection-end-column="68" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/curveFever/GameFacade.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="918">
-          <caret line="64" column="51" lean-forward="true" selection-start-line="64" selection-start-column="51" selection-end-line="64" selection-end-column="51" />
-          <folding />
+        <state relative-caret-position="85">
+          <caret line="20" column="36" lean-forward="true" selection-start-line="20" selection-start-column="36" selection-end-line="20" selection-end-column="36" />
+          <folding>
+            <element signature="e#2803#4098#0" expanded="true" />
+            <element signature="e#4097#4098#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/curveFever/Player.java">
+    <entry file="file://$PROJECT_DIR$/src/curveFever/configDialog/ConfigDialogController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1275">
-          <caret line="100" column="16" lean-forward="false" selection-start-line="100" selection-start-column="16" selection-end-line="100" selection-end-column="16" />
+        <state relative-caret-position="170">
+          <caret line="56" column="0" lean-forward="false" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
           <folding />
         </state>
       </provider>
