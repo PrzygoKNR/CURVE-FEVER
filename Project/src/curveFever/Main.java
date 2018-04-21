@@ -53,7 +53,7 @@ public class Main extends Application {
         Stage configStage = new Stage(StageStyle.UTILITY);
         configStage.initOwner(primaryStage);
         configStage.setTitle("Normalnie nazwane OKIENKO");
-        configStage.setScene(new Scene(configRoot, 500, 100));
+        configStage.setScene(new Scene(configRoot, 500, 200));
         configStage.setOnCloseRequest(event -> {
             Platform.exit();
             System.exit(0);
