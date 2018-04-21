@@ -117,11 +117,9 @@ public class ConfigDialogController {
         clearButton.setDisable(false);
 
         Stage stage = (Stage)borderPane.getScene().getWindow();
-        stage.setHeight(200 + maxPlayerNumber *35);
-        stage.setWidth(dialogWidth);
-
         System.out.println(maxPlayerNumber);
         setupWindowComponents();
+        stage.sizeToScene();
     }
 
     @FXML
@@ -139,7 +137,7 @@ public class ConfigDialogController {
             int elementId = i+1;
             HBox newHBox = new HBox(10);
             newHBox.setId("player" + elementId + "HBox");
-            newHBox.setMaxHeight(50);
+//            newHBox.setMaxHeight(50);
             Button button = setupButton(elementId);
             TextField leftTextField = setupTextField(elementId, "left");
             TextField rightTextField = setupTextField(elementId, "right");
@@ -162,13 +160,14 @@ public class ConfigDialogController {
         maxNumberLabel.setText(interfaceLanguage.setMaxNumberOfPlayer());
         maxNumberOkButton.setText(interfaceLanguage.ok());
 
-        try {
-            Stage stage = (Stage)borderPane.getScene().getWindow();
-            stage.setTitle(interfaceLanguage.dialogTitle());
-            stage.setWidth(dialogWidth);
-        } catch (Exception e) {
-            System.out.println("Couldn't get the stage");
-        }
+//        try {
+//            Stage stage = (Stage)borderPane.getScene().getWindow();
+//            stage.setTitle(interfaceLanguage.dialogTitle());
+//            stage.setWidth(dialogWidth);
+//        } catch (Exception e) {
+//            System.out.println("Couldn't get the stage");
+//        }
+
     }
 
     private void setColorConstraints() {
@@ -213,9 +212,6 @@ public class ConfigDialogController {
 
         gridPaneOne.getChildren().stream()
                 .flatMap(hBox -> ((HBox)hBox).getChildren().stream())
-//                .filter(hBoxChild
-//                        -> hBoxChild.getClass().equals(TextField.class)
-//                        || hBoxChild.getClass().equals(ColorPicker.class))
                 .forEach(hBoxChild -> {
                     if (hBoxChild.getClass().equals(Button.class)) {
                         hBoxChild.setDisable(false);
@@ -340,7 +336,12 @@ public class ConfigDialogController {
 
     private void powaznaNazwaPowaznejFunkcji(HBox hBox) {
         if (hBox.getChildren().parallelStream().allMatch(Node::isDisabled)) {
-            hBox.getChildren().stream().filter(node -> node.getClass().equals(Button.class)).forEach(node -> node.setDisable(false));
+            hBox.getChildren()
+                    .stream()
+                    .filter(node ->
+                            node.getClass()
+                                    .equals(Button.class))
+                    .forEach(node -> node.setDisable(false));
         }
     }
 
