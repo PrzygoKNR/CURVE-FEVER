@@ -29,6 +29,7 @@ public class ConfigDialogController {
     private int dialogWidth;
     private int buttonWidth;
     private int textFieldWidth;
+    private int objectsHeight;
 
     @FXML
     private BorderPane borderPane;
@@ -53,6 +54,7 @@ public class ConfigDialogController {
 
     @FXML
     public void initialize() {
+        objectsHeight = 15; //for Buttons and TextFields in the center of BorderPane
         languageComboList.addAll(InterfaceLanguages.values());
         languageComboBox.setValue(InterfaceLanguages.ENGLISH);
         onLanguageComboBoxHidden();
@@ -179,6 +181,7 @@ public class ConfigDialogController {
 
     private ColorPicker setupColorPicker(int colorPickerId) {
         ColorPicker colorPicker = new ColorPicker();
+        colorPicker.setPrefHeight(25);
         colorPicker.setId("player" + colorPickerId + "colorPicker");
 
         colorPicker.setOnHidden(this::onColorPickerHidden);
@@ -188,6 +191,7 @@ public class ConfigDialogController {
 
     private TextField setupTextField(int textFieldId, String direction) {
         TextField textField = new TextField();
+        textField.setPrefHeight(objectsHeight);
         textField.setId(direction + "Player" + textFieldId + "Control");
         textField.setAlignment(Pos.CENTER);
         textField.setDisable(true);
@@ -201,6 +205,7 @@ public class ConfigDialogController {
 
     private Button setupButton(int buttonId) {
         Button button = new Button(interfaceLanguage.player() + " " + buttonId);
+        button.setPrefHeight(objectsHeight);
         button.setId("player" + buttonId + "Button");
         button.setPrefWidth(buttonWidth);
 
