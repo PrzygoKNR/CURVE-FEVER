@@ -10,7 +10,6 @@
 
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.collections.FXCollections?>
-<?import java.lang.String?>
 <?import javafx.scene.control.ScrollPane?>
 <BorderPane fx:id="borderPane"
             onKeyReleased="#onBorderPaneKeyReleased"
@@ -26,8 +25,8 @@
             <Label fx:id="maxNumberLabel" text="Set max number of players" />
             <TextField fx:id="maxPlayerNumberTextField" prefHeight="25.0" prefWidth="40.0" text="2" alignment="CENTER"
             onKeyPressed="#onMaxPlayerNumberTextFieldKeyPressed"/>
-            <Button fx:id="maxNumberOkButton" onMouseClicked="#onMaxPlayerNumberButtonMouseClicked" text="OK" />
-            <ComboBox fx:id="languageComboBox" onHidden="#onLanguageComboBoxHidden">
+            <Button fx:id="maxNumberOkButton" onAction="#onMaxPlayerNumberButtonMouseClicked" onKeyPressed="#onMaxPlayerNumberKeyPressed" text="OK" />
+            <ComboBox fx:id="languageComboBox" onHidden="#onLanguageComboBoxHidden" onKeyPressed="#onLanguageComboBoxKeyPressed">
                 <items>
                     <FXCollections fx:id="languageComboList" fx:factory="observableArrayList"/>
                 </items>
@@ -45,7 +44,7 @@
             <padding>
                 <Insets bottom="10" right="10" top="10" />
             </padding>
-            <Button fx:id="okayButton" disable="true" onMouseClicked="#onOkayClicked" prefWidth="90" text="Okay" />
+            <Button fx:id="okayButton" disable="true" onAction="#onOkayClicked" onKeyPressed="#onOkayClicked" prefWidth="90" text="Okay" />
             <Button fx:id="clearButton" disable="true" onMouseClicked="#onClearClicked" prefWidth="90" text="Clear" />
             <Button fx:id="exitButton" onMouseClicked="#onExitClicked" prefWidth="90" text="Exit" />
         </HBox>

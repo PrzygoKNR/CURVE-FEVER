@@ -2,6 +2,7 @@ package curveFever.configDialog;
 
 import curveFever.languages.*;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -63,11 +64,26 @@ public class ConfigDialogController {
     public void onLanguageComboBoxHidden() {
         setLanguage();
         setupWindowComponents();
+
+        try {
+            borderPane.getScene().getWindow().sizeToScene();
+        } catch (NullPointerException e) {
+            System.out.println(e);
+            System.out.println("BorderPane not loaded yet");
+        }
+    }
+
+    @FXML
+    private void onLanguageComboBoxKeyPressed(KeyEvent keyEvent) {
+        if (keyEvent.getCode().equals(KeyCode.ENTER)) {
+            onLanguageComboBoxHidden();
+        }
+
     }
 
     private void setLanguage() {
         InterfaceLanguages interfaceLanguages = languageComboBox.getValue();
-        switch(interfaceLanguages) {
+        switch (interfaceLanguages) {
             case ARABIC:
                 interfaceLanguage = new ConfigGUILanguageARB();
                 dialogWidth = 500;
@@ -103,7 +119,7 @@ public class ConfigDialogController {
         String errorMessage = interfaceLanguage.wrongNumber();
         try {
             maxPlayerNumber = Integer.parseInt(maxPlayerNumberTextField.getText().trim());
-            if(maxPlayerNumber < 1) {
+            if (maxPlayerNumber < 1) {
                 errorMessage = interfaceLanguage.numberOutOfBound();
                 throw new IndexOutOfBoundsException("Number outside of bounds");
             }
@@ -116,15 +132,21 @@ public class ConfigDialogController {
         okayButton.setDisable(false);
         clearButton.setDisable(false);
 
-        Stage stage = (Stage)borderPane.getScene().getWindow();
+        Stage stage = (Stage) borderPane.getScene().getWindow();
         System.out.println(maxPlayerNumber);
         setupWindowComponents();
         stage.sizeToScene();
     }
 
     @FXML
+    public void onMaxPlayerNumberKeyPressed(KeyEvent keyEvent) {
+        if (keyEvent.getCode().equals(KeyCode.ENTER))
+            onMaxPlayerNumberButtonMouseClicked();
+    }
+
+    @FXML
     public void onMaxPlayerNumberTextFieldKeyPressed(KeyEvent keyEvent) {
-        if(keyEvent.getCode().equals(KeyCode.ENTER))
+        if (keyEvent.getCode().equals(KeyCode.ENTER))
             onMaxPlayerNumberButtonMouseClicked();
     }
 
@@ -133,8 +155,8 @@ public class ConfigDialogController {
         playersColors = new Color[maxPlayerNumber];
         playersControls = new KeyCode[maxPlayerNumber][2];
 
-        for(int i = 0; i< maxPlayerNumber; i++) {
-            int elementId = i+1;
+        for (int i = 0; i < maxPlayerNumber; i++) {
+            int elementId = i + 1;
             HBox newHBox = new HBox(10);
             newHBox.setId("player" + elementId + "HBox");
 //            newHBox.setMaxHeight(50);
@@ -176,10 +198,48 @@ public class ConfigDialogController {
         //more colors not allowed for players
     }
 
+    private boolean playerColorsContains(Color color) {
+        for (Color tempColor : playersColors) {
+            if (tempColor == null) continue;
+            if (tempColor.equals(color))
+                return true;
+        }
+        return false;
+    }
+
+    private Color generateUniqueColor() {
+        Random random = new Random();
+        Color color;
+
+        do {
+            color = new Color(random.nextFloat(), random.nextFloat(), random.nextFloat(), 1);
+        } while (playerColorsContains(color) || colorConstraints.contains(color));
+
+        return color;
+    }
+
+    @FXML
+    private void onColorPickerKeyPressed(KeyEvent keyEvent) {
+        KeyCode keyCode = keyEvent.getCode();
+        if (keyCode.equals(KeyCode.UP) || keyCode.equals(KeyCode.DOWN)
+                || keyCode.equals(KeyCode.LEFT) || keyCode.equals(KeyCode.RIGHT)) {
+            ColorPicker colorPicker = ((ColorPicker) keyEvent.getSource());
+            ((ColorPicker) keyEvent.getSource()).setValue(generateUniqueColor());
+            colorPicker.requestFocus();
+            keyEvent.consume();
+        }else if(keyCode.equals(KeyCode.ENTER)) {
+            onColorPickerHidden(keyEvent);
+        } else if(keyCode.equals(KeyCode.SPACE)) {
+            keyEvent.consume();
+        }
+    }
+
     private ColorPicker setupColorPicker(int colorPickerId) {
         ColorPicker colorPicker = new ColorPicker();
         colorPicker.setId("player" + colorPickerId + "colorPicker");
+        colorPicker.setValue(generateUniqueColor());
 
+        colorPicker.setOnKeyPressed(this::onColorPickerKeyPressed);
         colorPicker.setOnHidden(this::onColorPickerHidden);
         colorPicker.setDisable(true);
         return colorPicker;
@@ -203,7 +263,8 @@ public class ConfigDialogController {
         button.setId("player" + buttonId + "Button");
         button.setPrefWidth(buttonWidth);
 
-        button.setOnMouseClicked(this::onButtonClicked);
+        button.setOnAction(this::onButtonClicked);
+        button.setOnKeyPressed(this::onButtonKeyPressed);
         return button;
     }
 
@@ -211,7 +272,7 @@ public class ConfigDialogController {
         System.out.println("Clearing Fields");
 
         gridPaneOne.getChildren().stream()
-                .flatMap(hBox -> ((HBox)hBox).getChildren().stream())
+                .flatMap(hBox -> ((HBox) hBox).getChildren().stream())
                 .forEach(hBoxChild -> {
                     if (hBoxChild.getClass().equals(Button.class)) {
                         hBoxChild.setDisable(false);
@@ -222,16 +283,15 @@ public class ConfigDialogController {
                             || playersControls[childId][1] == null
                             || playersColors[childId] == null);
 
-                    if(hBoxChild.getClass().equals(TextField.class)) {
-                        TextField textField = (TextField)hBoxChild;
+                    if (hBoxChild.getClass().equals(TextField.class)) {
+                        TextField textField = (TextField) hBoxChild;
                         if (isPlayerConfigNull) {
                             textField.setText("");
                             nullPlayerConfig(childId);
                         }
-                    } else if(hBoxChild.getClass().equals(ColorPicker.class)) {
-                        ColorPicker colorPicker = (ColorPicker)hBoxChild;
-                        if(isPlayerConfigNull) {
-                            colorPicker.setValue(Color.WHITE);
+                    } else if (hBoxChild.getClass().equals(ColorPicker.class)) {
+                        if (isPlayerConfigNull) {
+//                            colorPicker.setValue(Color.WHITE);
                             nullPlayerConfig(childId);
                         }
                     }
@@ -240,9 +300,9 @@ public class ConfigDialogController {
     }
 
     private boolean playerControlsContains(KeyCode keyCode) {
-        for(int i=0; i<playersControls.length; i++) {
-            for (int j=0; j<playersControls[i].length; j++) {
-                if(playersControls[i][j] == keyCode) {
+        for (int i = 0; i < playersControls.length; i++) {
+            for (int j = 0; j < playersControls[i].length; j++) {
+                if (playersControls[i][j] == keyCode) {
                     return true;
                 }
             }
@@ -251,12 +311,12 @@ public class ConfigDialogController {
     }
 
     private boolean playerColorsCheck(Color color) {
-        if(colorConstraints.contains(color))
+        if (colorConstraints.contains(color))
             return true;
 
-        for(int i=0; i<playersColors.length; i++) {
-            if(playersColors[i] == null) continue;
-            if(playersColors[i].equals(color))
+        for (int i = 0; i < playersColors.length; i++) {
+            if (playersColors[i] == null) continue;
+            if (playersColors[i].equals(color))
                 return true;
         }
         return false;
@@ -277,9 +337,9 @@ public class ConfigDialogController {
 
     @FXML
     private void onColorPickerHidden(Event event) {
-        ColorPicker colorPicker = (ColorPicker)event.getSource();
+        ColorPicker colorPicker = (ColorPicker) event.getSource();
         Color color = colorPicker.getValue();
-        if(playerColorsCheck(color)) {
+        if (playerColorsCheck(color)) {
             displayAlert(interfaceLanguage.colorUnavailable(), interfaceLanguage.wrongColor());
             colorPicker.setValue(Color.WHITE);
             return;
@@ -288,20 +348,23 @@ public class ConfigDialogController {
         playersColors[colorPickerId] = color;
 
         colorPicker.setDisable(true);
-        powaznaNazwaPowaznejFunkcji((HBox)((ColorPicker) event.getSource()).getParent());
+        powaznaNazwaPowaznejFunkcji((HBox) ((ColorPicker) event.getSource()).getParent());
     }
 
     @FXML
     private void onTextFieldKeyReleased(KeyEvent keyEvent) {
+        if (keyEvent.getCode().equals(KeyCode.ENTER))
+            return;
+
         System.out.println(keyEvent.getCode());
-        TextField textField = (TextField)keyEvent.getSource();
-        if(playerControlsContains(keyEvent.getCode())) {
+        TextField textField = (TextField) keyEvent.getSource();
+        if (playerControlsContains(keyEvent.getCode())) {
             textField.setText(interfaceLanguage.keyInUse());
             return;
         }
 
         int playerId = getPlayerId(textField);
-        if(textField.getId().contains("left")) {
+        if (textField.getId().contains("left")) {
             playersControls[playerId][0] = keyEvent.getCode();
         } else {
             playersControls[playerId][1] = keyEvent.getCode();
@@ -309,29 +372,37 @@ public class ConfigDialogController {
 
         textField.setText(keyEvent.getCode().toString());
         textField.setDisable(true);
-        powaznaNazwaPowaznejFunkcji((HBox)((TextField) keyEvent.getSource()).getParent());
+        powaznaNazwaPowaznejFunkcji((HBox) ((TextField) keyEvent.getSource()).getParent());
     }
 
     @FXML
-    private void onButtonClicked(MouseEvent e) {
+    private void onButtonClicked(ActionEvent e) {
         resetGridPaneChildren();
-        Button clickedButton = (Button)e.getSource();
+        Button clickedButton = (Button) e.getSource();
         int clickedButtonId = getPlayerId(clickedButton);
         nullPlayerConfig(clickedButtonId);
-
-        HBox hBox = ((HBox)clickedButton.getParent());
+        HBox hBox = ((HBox) clickedButton.getParent());
         hBox.getChildren()
                 .parallelStream()
                 .forEach(node -> {
-                    if(node.getClass().equals(TextField.class)) {
-                        ((TextField)node).setText(interfaceLanguage.typeAKey());
-                    } else if(node.getClass().equals(ColorPicker.class)) {
-                        ((ColorPicker)node).setValue(Color.WHITE);
+                    if (node.getClass().equals(TextField.class)) {
+                        ((TextField) node).setText(interfaceLanguage.typeAKey());
                     }
+//                    } else if (node.getClass().equals(ColorPicker.class)) {
+//                        ((ColorPicker) node).setValue(Color.WHITE);
+//                    }
                     System.out.println(node);
                     node.setDisable(false);
                 });
         clickedButton.setDisable(true);
+    }
+
+    @FXML
+    private void onButtonKeyPressed(KeyEvent keyEvent) {
+        if (keyEvent.getCode().equals(KeyCode.ENTER)) {
+            onButtonClicked(new ActionEvent(keyEvent.getSource(), keyEvent.getTarget()));
+        }
+
     }
 
     private void powaznaNazwaPowaznejFunkcji(HBox hBox) {
@@ -347,12 +418,12 @@ public class ConfigDialogController {
 
     @FXML
     private void onTextFieldMouseClicked(MouseEvent event) {
-        ((TextField)event.getSource()).setText("");
+        ((TextField) event.getSource()).setText("");
     }
 
     @FXML
     public void onBorderPaneKeyReleased(KeyEvent keyEvent) {
-        if(keyEvent.getCode().equals(KeyCode.ESCAPE)) {
+        if (keyEvent.getCode().equals(KeyCode.ESCAPE)) {
             resetGridPaneChildren();
         }
     }
@@ -361,41 +432,41 @@ public class ConfigDialogController {
         int playerAmount = 0;
         boolean flag1;
         boolean flag2;
-        for(int i=0; i<playersControls.length; i++) {
+        for (int i = 0; i < playersControls.length; i++) {
             flag1 = false;
             flag2 = false;
 
-            if(playersControls[i][0] == null) flag1 = true;
-            if(playersControls[i][1] == null) flag2 = true;
-            if(flag1 != flag2) return true;
-            if(!flag1) playerAmount++;
+            if (playersControls[i][0] == null) flag1 = true;
+            if (playersControls[i][1] == null) flag2 = true;
+            if (flag1 != flag2) return true;
+            if (!flag1) playerAmount++;
         }
-        if(playerAmount < 2) return true;
+        if (playerAmount < 2) return true;
         else return false;
     }
 
     @FXML
     public void onOkayClicked() {
-        if(isConfigIncomplete()) {
+        if (isConfigIncomplete()) {
             System.out.println("Config not complete");
             return;
         }
 
         System.out.println("--------------------------------------------------------------------");
-        for(int i=0; i<playersControls.length; i++) {
+        for (int i = 0; i < playersControls.length; i++) {
             System.out.println("i: " + i);
-            for (int j=0; j<playersControls[i].length; j++) {
+            for (int j = 0; j < playersControls[i].length; j++) {
                 System.out.print(playersControls[i][j] + " ");
             }
             System.out.println();
         }
 
-        Stage stage = (Stage)gridPaneOne.getScene().getWindow();
+        Stage stage = (Stage) gridPaneOne.getScene().getWindow();
         stage.close();
     }
 
     @FXML
-    public void onClearClicked(){
+    public void onClearClicked() {
         playersControls = new KeyCode[maxPlayerNumber][2];
         resetGridPaneChildren();
     }
@@ -403,7 +474,7 @@ public class ConfigDialogController {
     @FXML
     public void onExitClicked() {
         playersControls = null;
-        Stage stage = (Stage)gridPaneOne.getScene().getWindow();
+        Stage stage = (Stage) gridPaneOne.getScene().getWindow();
         stage.close();
     }
 
