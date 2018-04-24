@@ -8,6 +8,9 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -17,6 +20,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.util.*;
 
 
@@ -111,6 +115,10 @@ public class ConfigDialogController {
                 buttonWidth = 90;
                 textFieldWidth = 120;
                 break;
+
+            default:
+                displayAlert("Something went wrong", "Language unavailable");
+                break;
         }
     }
 
@@ -136,6 +144,11 @@ public class ConfigDialogController {
         System.out.println(maxPlayerNumber);
         setupWindowComponents();
         stage.sizeToScene();
+
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        if (stage.getHeight() > (screenSize.height / 2)) {
+            stage.setHeight(screenSize.height / 2);
+        }
     }
 
     @FXML
@@ -227,9 +240,9 @@ public class ConfigDialogController {
             ((ColorPicker) keyEvent.getSource()).setValue(generateUniqueColor());
             colorPicker.requestFocus();
             keyEvent.consume();
-        }else if(keyCode.equals(KeyCode.ENTER)) {
+        } else if (keyCode.equals(KeyCode.ENTER)) {
             onColorPickerHidden(keyEvent);
-        } else if(keyCode.equals(KeyCode.SPACE)) {
+        } else if (keyCode.equals(KeyCode.SPACE)) {
             keyEvent.consume();
         }
     }
@@ -443,6 +456,12 @@ public class ConfigDialogController {
         }
         if (playerAmount < 2) return true;
         else return false;
+    }
+
+    @FXML
+    public void onOkayKeyPressed(KeyEvent keyEvent) {
+        if (keyEvent.getCode().equals(KeyCode.ENTER))
+            onOkayClicked();
     }
 
     @FXML
