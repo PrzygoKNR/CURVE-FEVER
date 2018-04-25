@@ -105,23 +105,18 @@ public class Player implements IDrawable {
             positions[i].y = positions[i - 1].y;
         }
 
-        if (isDead == false) {
-            positions[0].x += speed * Math.sin(Math.toRadians(angle));
-            positions[0].y += speed * Math.cos(Math.toRadians(angle));
-        }
+        positions[0].x += speed * Math.sin(Math.toRadians(angle));
+        positions[0].y += speed * Math.cos(Math.toRadians(angle));
 
-        if (!this.isDead) {
-            this.msCounter += CurveFeverConsts.TIME_OF_REFRESH_GRAPHICS;
-            if (this.msCounter > CurveFeverConsts.MS_TO_DRAW_BREAK - this.randomDeltaToDrawingLine) {
-                this.isLineDrawing = false;
-            }
-            if (this.msCounter > CurveFeverConsts.MS_TO_DRAW_BREAK + CurveFeverConsts.MS_TO_START_DRAWING - this.randomDeltaToDrawingLine) {
-                this.isLineDrawing = true;
-                this.msCounter = 0;
-                setNewRandomDeltaToDrawingLine();
-            }
+        this.msCounter += CurveFeverConsts.TIME_OF_REFRESH_GRAPHICS;
+        if (this.msCounter > CurveFeverConsts.MS_TO_DRAW_BREAK - this.randomDeltaToDrawingLine) {
+            this.isLineDrawing = false;
         }
-
+        if (this.msCounter > CurveFeverConsts.MS_TO_DRAW_BREAK + CurveFeverConsts.MS_TO_START_DRAWING - this.randomDeltaToDrawingLine) {
+            this.isLineDrawing = true;
+            this.msCounter = 0;
+            setNewRandomDeltaToDrawingLine();
+        }
         //positionTest();
     }
 
