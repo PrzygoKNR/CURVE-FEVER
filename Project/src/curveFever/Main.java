@@ -40,9 +40,10 @@ public class Main extends Application {
         primaryStage.setScene(scene);
 
         // pobieranie aktualnych wymiarów formularza
+        Rectangle2D screenSizeFX = Screen.getPrimary().getVisualBounds();
 
-        int widthOfForm = (int) screenSize.getWidth();
-        int heightOfForm = (int) screenSize.getHeight();
+        int widthOfForm = (int) screenSizeFX.getWidth();
+        int heightOfForm = (int) screenSizeFX.getHeight();
 
         // tworzenie kanwy rysunku o wymiarach formularza
 
