@@ -12,7 +12,7 @@ public class Player implements IDrawable {
     private int playerID;
     private Color color;
     private int size = CurveFeverConsts.PLAYER_DEFAULT_SIZE;
-    private int speed = CurveFeverConsts.PLAYER_DEFAULT_SPEED;
+    private double speed = CurveFeverConsts.PLAYER_DEFAULT_SPEED;
     private boolean isDead = false;
     private KeyCode leftKey;
     private KeyCode rightKey;
@@ -70,7 +70,7 @@ public class Player implements IDrawable {
         return this.playerID;
     }
 
-    public int getSpeed() {
+    public double getSpeed() {
         return this.speed;
     }
 
@@ -91,7 +91,8 @@ public class Player implements IDrawable {
     }
 
     public Point getPositionForTrace() {
-        return new Point(positions[7].x, positions[7].y); // pozycja w której rysujemy slad
+        return new Point(positions[(int)((double)(CurveFeverConsts.PLAYER_MARGIN_BEETWEN_PLAYER_AND_LINE + this.size/2)*2.0/speed)].x,
+                positions[(int)((double)(CurveFeverConsts.PLAYER_MARGIN_BEETWEN_PLAYER_AND_LINE + this.size/2)*2.0/speed)].y); // pozycja w której rysujemy slad
     }
 
     public Point getPositions() {
@@ -134,8 +135,8 @@ public class Player implements IDrawable {
         if (this.isLineDrawing) {
             gc.setFill(this.color);                                             //rysuje slad
             gc.fillOval(
-                    this.positions[CurveFeverConsts.PLAYER_MARGIN_BEETWEN_PLAYER_AND_LINE + this.size/2].x,
-                    this.positions[CurveFeverConsts.PLAYER_MARGIN_BEETWEN_PLAYER_AND_LINE + this.size/2].y,
+                    this.positions[(int)((double)(CurveFeverConsts.PLAYER_MARGIN_BEETWEN_PLAYER_AND_LINE + this.size/2)*2.0/speed)].x,
+                    this.positions[(int)((double)(CurveFeverConsts.PLAYER_MARGIN_BEETWEN_PLAYER_AND_LINE + this.size/2)*2.0/speed)].y,
                     size,
                     size);
         }

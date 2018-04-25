@@ -50,8 +50,8 @@ public class GameFacade {
                 continue;
             }
             Point startingPoint = new Point(
-                    random.nextInt(width - 200 - CurveFeverConsts.PLAYER_DEFAULT_SIZE * 20) + CurveFeverConsts.PLAYER_DEFAULT_SIZE * 20 + 100,
-                    random.nextInt(height - 200 - CurveFeverConsts.PLAYER_DEFAULT_SIZE * 20) + CurveFeverConsts.PLAYER_DEFAULT_SIZE * 20 + 100);
+                    random.nextInt(width - 600 - CurveFeverConsts.PLAYER_DEFAULT_SIZE * 20) + CurveFeverConsts.PLAYER_DEFAULT_SIZE * 20 + 300,
+                    random.nextInt(height - 600 - CurveFeverConsts.PLAYER_DEFAULT_SIZE * 20) + CurveFeverConsts.PLAYER_DEFAULT_SIZE * 20 + 300);
 
             players.add(new Player(colors[i],
                     playersControls[i][0],
@@ -59,14 +59,20 @@ public class GameFacade {
                     startingPoint,
                     random.nextInt(359)));
         }
+        gc.setFill(Color.YELLOWGREEN);
+        gc.strokeLine(5.0,5.0,width - 5.0,5.0);
+        gc.strokeLine(width - 5.0,5.0,width - 5.0,height - 5.0);
+        gc.strokeLine(width - 5.0,height - 5.0,5.0,height - 5.0);
+        gc.strokeLine(5.0,height - 5.0,5.0,5.0);
 
-        for (int i = 0; i < 10; i++) {            // przed rozpoczęciem wykonuje kilka ruchów żeby nie wykryło zderzenia i było wiadomo w którą stronę skierowanie są gracze
+        for (int i = 0; i < 10; i++) {            // przed rozpoczęciem wykonuje kilka ruchów żeby nie wykryło zderzenia i było wiadomo w którą stronę skierowani są gracze
             for (Player player : players) {
                 player.makeStep();
                 player.draw(gc);
                 boardObject.addTrace(player.getPositionForTrace(), player.getSize());
             }
         }
+
 
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
