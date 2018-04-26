@@ -4,13 +4,13 @@ import curveFever.configDialog.ConfigDialogController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Dimension2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -31,6 +31,7 @@ public class Main extends Application {
 
         Group root = new Group();
         primaryStage.setTitle("Curve Fever");
+        primaryStage.getIcons().add(new Image("file:images/applicationIcon.png"));
         primaryStage.setResizable(false);
         primaryStage.setMaximized(true);
         primaryStage.show();
