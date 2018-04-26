@@ -82,7 +82,6 @@ public class ConfigDialogController {
         if (keyEvent.getCode().equals(KeyCode.ENTER)) {
             onLanguageComboBoxHidden();
         }
-
     }
 
     private void setLanguage() {
@@ -172,7 +171,6 @@ public class ConfigDialogController {
             int elementId = i + 1;
             HBox newHBox = new HBox(10);
             newHBox.setId("player" + elementId + "HBox");
-//            newHBox.setMaxHeight(50);
             Button button = setupButton(elementId);
             TextField leftTextField = setupTextField(elementId, "left");
             TextField rightTextField = setupTextField(elementId, "right");
@@ -194,21 +192,12 @@ public class ConfigDialogController {
         exitButton.setText(interfaceLanguage.exit());
         maxNumberLabel.setText(interfaceLanguage.setMaxNumberOfPlayer());
         maxNumberOkButton.setText(interfaceLanguage.ok());
-
-//        try {
-//            Stage stage = (Stage)borderPane.getScene().getWindow();
-//            stage.setTitle(interfaceLanguage.dialogTitle());
-//            stage.setWidth(dialogWidth);
-//        } catch (Exception e) {
-//            System.out.println("Couldn't get the stage");
-//        }
-
     }
 
     private void setColorConstraints() {
         colorConstraints = new HashSet<>();
         colorConstraints.add(Color.WHITE);
-        //more colors not allowed for players
+        //wiecej kolorow nie jest dozwolonych dla graczy
     }
 
     private boolean playerColorsContains(Color color) {
@@ -304,7 +293,6 @@ public class ConfigDialogController {
                         }
                     } else if (hBoxChild.getClass().equals(ColorPicker.class)) {
                         if (isPlayerConfigNull) {
-//                            colorPicker.setValue(Color.WHITE);
                             nullPlayerConfig(childId);
                         }
                     }
@@ -401,9 +389,6 @@ public class ConfigDialogController {
                     if (node.getClass().equals(TextField.class)) {
                         ((TextField) node).setText(interfaceLanguage.typeAKey());
                     }
-//                    } else if (node.getClass().equals(ColorPicker.class)) {
-//                        ((ColorPicker) node).setValue(Color.WHITE);
-//                    }
                     System.out.println(node);
                     node.setDisable(false);
                 });

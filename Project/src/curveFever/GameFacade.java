@@ -4,8 +4,6 @@ import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-import java.awt.*;
-import java.security.Key;
 import java.util.*;
 import java.util.List;
 
@@ -19,39 +17,25 @@ public class GameFacade {
     List<Player> players = new ArrayList<Player>();
     List<Bonus> bonuses = new ArrayList<Bonus>();
     static Set<KeyCode> pressedKeys;
+    private boolean pause = true;
 
-    public GameFacade(int width, int height, Set<KeyCode> pressedKeys1, final GraphicsContext gc,
+    public GameFacade(int width, int height, Set<KeyCode> pressedKeys, final GraphicsContext gc,
                       KeyCode[][] playersControls, int maxNumberOfPlayers, Color[] colors) {
-        GameFacade.pressedKeys = pressedKeys1;
+        this.pressedKeys = pressedKeys;
         boardObject = new Board(width, height, players, gc);
         handlingObject = new Handling(boardObject, gc);
         scoreCounterObject = new ScoreCounter();
         Timer timer = new Timer();
 
-        //Create static keys, colors, starting points and angles
-//        Color[] colors = {Color.RED, Color.GREEN, Color.BLUE, Color.ORANGE, Color.CORAL, Color.PINK};                                         deprecated
-//        KeyCode[][] keys = {{KeyCode.LEFT, KeyCode.RIGHT}, {KeyCode.Z, KeyCode.X}, {KeyCode.B, KeyCode.N}, {KeyCode.DIGIT1, KeyCode.DIGIT2}}; deprecated
-//        Point[] startingPosition = {new Point(200, 300), new Point(300, 500), new Point(1000, 400),
-//                                new Point(700, 200), new Point(500, 500), new Point(800, 800)};
-//        Double[] startingAngle = {200.0, 100.0, 0.0, 300.0, 100.0, 90.0};
-
         Random random = new Random();
 
-//        for(int i=0; i<100; i++) {
-//            Point startingPoint = new Point(
-//                    random.nextInt(width - 200 - CurveFeverConsts.PLAYER_DEFAULT_SIZE * 20) + CurveFeverConsts.PLAYER_DEFAULT_SIZE * 20 + 100,
-//                    random.nextInt(height - 200 - CurveFeverConsts.PLAYER_DEFAULT_SIZE * 20) + CurveFeverConsts.PLAYER_DEFAULT_SIZE * 20 + 100);
-//            System.out.println("X: " + startingPoint.x + " X: " + startingPoint.y);
-//        }
-
         for (int i = 0; i < maxNumberOfPlayers; i++) {
-            if (playersControls[i][0] == (null)) {
-                System.out.println("NUUUULLL");
+            if (playersControls[i][0] == null) {
                 continue;
             }
             Point startingPoint = new Point(
-                    random.nextInt(width - 600 - CurveFeverConsts.PLAYER_DEFAULT_SIZE * 20) + CurveFeverConsts.PLAYER_DEFAULT_SIZE * 20 + 300,
-                    random.nextInt(height - 600 - CurveFeverConsts.PLAYER_DEFAULT_SIZE * 20) + CurveFeverConsts.PLAYER_DEFAULT_SIZE * 20 + 300);
+                    random.nextInt(width - CurveFeverConsts.MARGIN_OF_BOUNDS * 2 - CurveFeverConsts.PLAYER_DEFAULT_SIZE * 2) + CurveFeverConsts.PLAYER_DEFAULT_SIZE + CurveFeverConsts.MARGIN_OF_BOUNDS,
+                    random.nextInt(height - CurveFeverConsts.MARGIN_OF_BOUNDS * 2 - CurveFeverConsts.PLAYER_DEFAULT_SIZE * 2) + CurveFeverConsts.PLAYER_DEFAULT_SIZE + CurveFeverConsts.MARGIN_OF_BOUNDS);
 
             players.add(new Player(colors[i],
                     playersControls[i][0],
@@ -59,11 +43,12 @@ public class GameFacade {
                     startingPoint,
                     random.nextInt(359)));
         }
-        gc.setFill(Color.YELLOWGREEN);
-        gc.strokeLine(5.0,5.0,width - 5.0,5.0);
-        gc.strokeLine(width - 5.0,5.0,width - 5.0,height - 5.0);
-        gc.strokeLine(width - 5.0,height - 5.0,5.0,height - 5.0);
-        gc.strokeLine(5.0,height - 5.0,5.0,5.0);
+
+        gc.setStroke(Color.BLACK);
+        gc.strokeLine(5.0, 5.0, width - 5.0, 5.0);
+        gc.strokeLine(width - 5.0, 5.0, width - 5.0, height - 5.0);
+        gc.strokeLine(width - 5.0, height - 5.0, 5.0, height - 5.0);
+        gc.strokeLine(5.0, height - 5.0, 5.0, 5.0);
 
         for (int i = 0; i < 10; i++) {            // przed rozpoczęciem wykonuje kilka ruchów żeby nie wykryło zderzenia i było wiadomo w którą stronę skierowani są gracze
             for (Player player : players) {
@@ -73,25 +58,31 @@ public class GameFacade {
             }
         }
 
-
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
-                        for (Player player : players) {
-                            if (!player.getIsDead()) {
-                                handlingObject.handleKeys(GameFacade.pressedKeys, player);
-                                player.makeStep();
+                        if (pressedKeys.contains(KeyCode.SPACE )) {
+                            pause = !pause;
+                            pressedKeys.clear();
+                        }
 
-                                if (boardObject.checkSpace(player.getPositions(), player.getSize()) == true) {
-                                    player.setIsDead(true);
-                                }  // jak wykryje zderzenie to umarl a kto umarl ten nie żyje XD
+                        if (!pause) {
+                            for (Player player : players) {
+                                if (!player.getIsDead()) {
+                                    handlingObject.handleKeys(GameFacade.pressedKeys, player);
+                                    player.makeStep();
 
-                                player.draw(gc);                                                              // rysowanie
-                                if (player.getIsLineDrawing()) {                                                //jeżeli linia jest w danym miejscu rysowana
-                                    boardObject.addTrace(player.getPositionForTrace(), player.getSize());     // dodaje slad do tablicy kolizji
+                                    if (boardObject.checkSpace(player.getPositions(), player.getSize()) == true) {
+                                        player.setIsDead(true);
+                                    }  // jak wykryje zderzenie to umarl a kto umarl ten nie żyje XD
+
+                                    player.draw(gc);                                                                // rysowanie
+                                    if (player.getIsLineDrawing()) {                                                //jeżeli linia jest w danym miejscu rysowana
+                                        boardObject.addTrace(player.getPositionForTrace(), player.getSize());       // dodaje slad do tablicy kolizji
+                                    }
                                 }
                             }
                         }

@@ -53,7 +53,7 @@ public class Main extends Application {
         Parent configRoot = FXMLLoader.load(getClass().getResource("configDialog/ConfigDialog.fxml"));
         Stage configStage = new Stage(StageStyle.UTILITY);
         configStage.initOwner(primaryStage);
-        configStage.setTitle("Normalnie nazwane OKIENKO");
+        configStage.setTitle("Curve Fever");
         configStage.setScene(new Scene(configRoot));
         configStage.setOnCloseRequest(event -> {
             Platform.exit();
