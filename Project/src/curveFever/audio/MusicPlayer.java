@@ -39,8 +39,8 @@ public class MusicPlayer {
     }
 
     private void musicPlayerController() {
-        if (musicFolder.listFiles() == null)
-            return;
+        if (musicFolder == null) return;
+        if(musicFolder.listFiles() == null) return;
 
         musicList = new LinkedList<>();
         Arrays.stream(musicFolder.listFiles())
@@ -78,7 +78,7 @@ public class MusicPlayer {
 
         try {
             musicFolder = new File(getClass().getResource(folder).toURI());
-        } catch (URISyntaxException e) {
+        } catch (URISyntaxException | NullPointerException e) {
             e.printStackTrace();
             System.out.println("Couldn't load audio resources file");
             musicFolder = null;
