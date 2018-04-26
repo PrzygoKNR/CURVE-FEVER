@@ -1,5 +1,7 @@
-package curveFever.configDialog;
+package curveFever.configdialog;
 
+import curveFever.Main;
+import curveFever.audio.MusicPlayer;
 import curveFever.languages.*;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

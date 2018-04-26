@@ -1,6 +1,7 @@
 package curveFever;
 
-import curveFever.configDialog.ConfigDialogController;
+import curveFever.audio.MusicPlayer;
+import curveFever.configdialog.ConfigDialogController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -25,9 +26,12 @@ import java.util.*;
 public class Main extends Application {
 
     private static Set<KeyCode> pressedKeys = new HashSet<KeyCode>();
+    public static MusicPlayer musicPlayer;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        musicPlayer = new MusicPlayer();
+        musicPlayer.shuffleMusicList();
 
         Group root = new Group();
         primaryStage.setTitle("Curve Fever");
@@ -51,7 +55,7 @@ public class Main extends Application {
         Canvas canvas = new Canvas(widthOfForm, heightOfForm);
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        Parent configRoot = FXMLLoader.load(getClass().getResource("configDialog/ConfigDialog.fxml"));
+        Parent configRoot = FXMLLoader.load(getClass().getResource("configdialog/ConfigDialog.fxml"));
         Stage configStage = new Stage(StageStyle.UTILITY);
         configStage.initOwner(primaryStage);
         configStage.setTitle("Curve Fever");
@@ -97,6 +101,7 @@ public class Main extends Application {
 
         //dodawanie canvas oraz pokazywanie formularza
         root.getChildren().add(canvas);
+
     }
 
 

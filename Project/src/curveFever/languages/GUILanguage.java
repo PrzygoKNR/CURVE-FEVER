@@ -26,8 +26,10 @@ public abstract class GUILanguage {
     protected abstract void setupHashMap();
 
     protected void translationsLoader(String fileName) {
-        InputStream inputStream = getClass().getResourceAsStream("/curveFever/languages/" +
-                                                                        "resources/" + fileName);
+        String resourcesPath = "/"
+                + getClass().getPackage().getName().replaceAll("\\.", "/")
+                + "/resources/";
+        InputStream inputStream = getClass().getResourceAsStream(resourcesPath + fileName);
 
         try(Scanner scanner = new Scanner(new BufferedReader(new InputStreamReader(inputStream)))) {
             while(scanner.hasNextLine()) {
