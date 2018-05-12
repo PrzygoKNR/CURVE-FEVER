@@ -20,7 +20,7 @@ public class Player implements IDrawable {
     private double rotateStep = CurveFeverConsts.PLAYER_DEFAULT_ROTATE;
     private Point[] positions = new Point[CurveFeverConsts.NUMBER_OF_POINTS_TO_STORE];
     private int msCounter = 0;                              //licznik milisekund, do zmiany na rysowanie/nierysowanie śladu
-    private boolean isLineDrawing = true;
+    public boolean isLineDrawing = true;
     private int randomDeltaToDrawingLine = 0;
 
     public Player(Color color, KeyCode leftKey, KeyCode rightKey, Point startingPosition, double startingAngle) {
@@ -34,10 +34,24 @@ public class Player implements IDrawable {
             positions[i] = new Point(startingPosition.x, startingPosition.y);
         }
 
+
         this.angle = startingAngle;
         setNewRandomDeltaToDrawingLine();
     }
 
+    public void setStartingLocation(Point startingPosition) {
+        for (int i = 0; i < positions.length; i++) {
+            positions[i] = new Point(startingPosition.x, startingPosition.y);
+        }
+    }
+
+    public KeyCode getLeftKey(){
+        return leftKey;
+    }
+
+    public   KeyCode getRightKey() {
+        return rightKey;
+    }
     private void setNewRandomDeltaToDrawingLine() {
         final double MAX_PERCENTAGE_TO_DELTA = 0.8;
         randomDeltaToDrawingLine = (new Random()).nextInt((int) (CurveFeverConsts.MS_TO_DRAW_BREAK * MAX_PERCENTAGE_TO_DELTA));

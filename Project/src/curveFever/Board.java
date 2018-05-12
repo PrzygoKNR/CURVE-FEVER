@@ -11,7 +11,7 @@ public class Board {
     private int height;
     private Canvas canvas;
 
-    List<Player> players;
+    public List<Player> players;
 
     public Board(int width, int height, final List<Player> players, final GraphicsContext gc) {
         this.width = width;
@@ -70,5 +70,10 @@ public class Board {
                 boardArray[x - (int) (size * 0.4) + i][y - (int) (size * 0.4) + j] = 1;
             }
         }
+    }
+    public void clearBoard(){
+        for(int i=0; i<width;i++)
+            for(int j=0; j<height;j++)
+                boardArray[i][j]=0;
     }
 }
