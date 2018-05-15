@@ -11,7 +11,7 @@ public class Board {
     private int height;
     private Canvas canvas;
 
-    public List<Player> players;
+    private List<Player> players;
 
     public Board(int width, int height, final List<Player> players, final GraphicsContext gc) {
         this.width = width;
@@ -25,13 +25,13 @@ public class Board {
         }
     }
 
-    public int getWidth() {
-        return this.width;
-    }
+//    public int getWidth() {
+//        return this.width;
+//    }
 
-    public int getHeight() {
-        return this.height;
-    }
+//    public int getHeight() {
+//        return this.height;
+//    }
 
     public boolean checkSpace(Point position, int size) {           // sprawdza kilka punktow na graczu i czy nie jest za blisko ściany
         int x = (int) position.x - 1;                               // bo w tablicy bedzie to przesuniete
