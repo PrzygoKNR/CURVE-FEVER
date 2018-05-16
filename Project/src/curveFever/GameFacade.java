@@ -82,7 +82,7 @@ public class GameFacade {
                                         }
                                     }
                                 }
-                                
+
                                 for (Bonus bonus : bonuses) {
                                     bonus.draw(gc);
                                     bonus.checkPlayers(players);

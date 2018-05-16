@@ -24,15 +24,13 @@ public class Bonus {
     public void draw(GraphicsContext gc) {
         switch (type) {
             case slowDown:
-                gc.setFill(Color.BLUE);
-                gc.fillOval(this.position.x - CurveFeverConsts.BONUS_IMAGE_SIZE / 2,
+                gc.drawImage(CurveFeverConsts.BONUS_IMAGE_SPEED,this.position.x - CurveFeverConsts.BONUS_IMAGE_SIZE / 2,
                         this.position.y - CurveFeverConsts.BONUS_IMAGE_SIZE / 2,
                         CurveFeverConsts.BONUS_IMAGE_SIZE,
                         CurveFeverConsts.BONUS_IMAGE_SIZE);
                 break;
             case changeSize:
-                gc.setFill(Color.RED);
-                gc.fillOval(this.position.x - CurveFeverConsts.BONUS_IMAGE_SIZE / 2,
+                gc.drawImage(CurveFeverConsts.BONUS_IMAGE_CHANGE_SIZE,this.position.x - CurveFeverConsts.BONUS_IMAGE_SIZE / 2,
                         this.position.y - CurveFeverConsts.BONUS_IMAGE_SIZE / 2,
                         CurveFeverConsts.BONUS_IMAGE_SIZE,
                         CurveFeverConsts.BONUS_IMAGE_SIZE);

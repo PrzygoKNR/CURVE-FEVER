@@ -1,5 +1,6 @@
 package curveFever;
 
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 public class CurveFeverConsts {
@@ -18,7 +19,8 @@ public class CurveFeverConsts {
     public final static int BONUS_TIME_OF_DURATION = 1000;
     public final static int BONUS_SIZE_OF_PLAYER = 5;
     public final static double BONUS_SPEED_OF_PLAYER = 1.0;
-    public final static int BONUS_ANIMATION_DURATION= 100;
+    public final static Image BONUS_IMAGE_SPEED = new Image("file:images/speed.png");
+    public final static Image BONUS_IMAGE_CHANGE_SIZE = new Image("file:images/size.png");
 
 
     public final static int MARGIN_OF_BOUNDS = 300;
