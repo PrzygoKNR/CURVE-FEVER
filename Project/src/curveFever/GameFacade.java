@@ -29,17 +29,15 @@ public class GameFacade {
         handlingObject = new Handling(boardObject, gc);
         scoreCounterObject = new ScoreCounter();
         Timer timer = new Timer();
-
         random = new Random();
 
         initPlayers( width,  height, maxNumberOfPlayers,  playersControls,  random,  colors);
+
         gc.setStroke(Color.BLACK);
         gc.strokeLine(5.0, 5.0, width - 5.0, 5.0);
         gc.strokeLine(width - 5.0, 5.0, width - 5.0, height - 5.0);
         gc.strokeLine(width - 5.0, height - 5.0, 5.0, height - 5.0);
         gc.strokeLine(5.0, height - 5.0, 5.0, 5.0);
-
-        makeSteps(gc);
 
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -84,6 +82,12 @@ public class GameFacade {
                                         }
                                     }
                                 }
+                                
+                                for (Bonus bonus : bonuses) {
+                                    bonus.draw(gc);
+                                    bonus.checkPlayers(players);
+                                }
+
                                 if(allDead) {
                                     switchState =1; pause=!pause;}
                             }
@@ -95,13 +99,15 @@ public class GameFacade {
         }, 0, CurveFeverConsts.TIME_OF_REFRESH_GRAPHICS);
     }
 
-
     public Map<Integer, Integer> getScores() {
 
         return null;
     }
 
     private void initPlayers(int width, int height,int maxNumberOfPlayers, KeyCode[][] playersControls, Random random, Color[] colors){
+        players.clear();
+        bonuses.clear();
+
         for (int i = 0; i < maxNumberOfPlayers; i++) {
             if (playersControls[i][0] == null) {
                 continue;
@@ -117,7 +123,14 @@ public class GameFacade {
                     random.nextInt(359)));
         }
 
+        // generowanie bonusów
+        for (int i = 0; i < CurveFeverConsts.NUMBER_OF_BONUSES_ON_BOARD; i++) {
+            bonuses.add(new Bonus(random.nextInt(width - CurveFeverConsts.MARGIN_OF_BOUNDS * 2 - CurveFeverConsts.BONUS_IMAGE_SIZE * 2) + CurveFeverConsts.BONUS_IMAGE_SIZE + CurveFeverConsts.MARGIN_OF_BOUNDS,
+                    random.nextInt(height - CurveFeverConsts.MARGIN_OF_BOUNDS * 2 - CurveFeverConsts.BONUS_IMAGE_SIZE * 2) + CurveFeverConsts.BONUS_IMAGE_SIZE + CurveFeverConsts.MARGIN_OF_BOUNDS,
+                    BonusType.values()[random.nextInt(BonusType.values().length - 1) + 1]));
+        }
     }
+
     private void makeSteps(final GraphicsContext gc){
         for (int i = 0; i < 10; i++) {            // przed rozpoczęciem wykonuje kilka ruchów żeby nie wykryło zderzenia i było wiadomo w którą stronę skierowani są gracze
             for (Player player : players) {
@@ -127,5 +140,4 @@ public class GameFacade {
             }
         }
     }
-
 }

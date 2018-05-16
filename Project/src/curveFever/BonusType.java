@@ -1,5 +1,7 @@
 package curveFever;
 
 public enum BonusType {
-    undefined
+    undefined,
+    changeSize,
+    slowDown
 }

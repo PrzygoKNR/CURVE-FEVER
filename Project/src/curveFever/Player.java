@@ -3,6 +3,7 @@ package curveFever;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.input.KeyCode;
+import sun.awt.geom.Curve;
 
 import java.lang.Math;
 import java.util.Random;
@@ -19,9 +20,13 @@ public class Player implements IDrawable {
     private double angle;
     private double rotateStep = CurveFeverConsts.PLAYER_DEFAULT_ROTATE;
     private Point[] positions = new Point[CurveFeverConsts.NUMBER_OF_POINTS_TO_STORE];
-    private int msCounter = 0;                              //licznik milisekund, do zmiany na rysowanie/nierysowanie śladu
-    public boolean isLineDrawing = true;
+    private int msCounter = 0;                              // licznik milisekund, do zmiany na rysowanie/nierysowanie śladu
+    private boolean isLineDrawing = true;
     private int randomDeltaToDrawingLine = 0;
+
+    // zmienne dla bonusów
+    private int slowDownBonusCounter = 0;
+    private int sizeBonusCounter = 0;
 
     public Player(Color color, KeyCode leftKey, KeyCode rightKey, Point startingPosition, double startingAngle) {
         this.playerID = maxId;
@@ -33,7 +38,6 @@ public class Player implements IDrawable {
         for (int i = 0; i < positions.length; i++) {
             positions[i] = new Point(startingPosition.x, startingPosition.y);
         }
-
 
         this.angle = startingAngle;
         setNewRandomDeltaToDrawingLine();
@@ -49,9 +53,10 @@ public class Player implements IDrawable {
         return leftKey;
     }
 
-    public   KeyCode getRightKey() {
+    public KeyCode getRightKey() {
         return rightKey;
     }
+
     private void setNewRandomDeltaToDrawingLine() {
         final double MAX_PERCENTAGE_TO_DELTA = 0.8;
         randomDeltaToDrawingLine = (new Random()).nextInt((int) (CurveFeverConsts.MS_TO_DRAW_BREAK * MAX_PERCENTAGE_TO_DELTA));
@@ -131,7 +136,19 @@ public class Player implements IDrawable {
             this.msCounter = 0;
             setNewRandomDeltaToDrawingLine();
         }
-        //positionTest();
+
+        if (this.sizeBonusCounter > 0) {
+            this.sizeBonusCounter--;
+        } else if (this.sizeBonusCounter == 0) {
+            this.size = CurveFeverConsts.PLAYER_DEFAULT_SIZE;
+        }
+
+
+        if (this.slowDownBonusCounter > 0) {
+            this.slowDownBonusCounter--;
+        } else if (this.slowDownBonusCounter == 0) {
+            this.speed = CurveFeverConsts.PLAYER_DEFAULT_SPEED;
+        }
     }
 
     public void draw(GraphicsContext gc) {
@@ -143,14 +160,26 @@ public class Player implements IDrawable {
 
         if (this.isLineDrawing) {
             gc.setFill(this.color);                                             //rysuje slad
-            gc.fillOval(
-                    this.positions[(int) ((double) (CurveFeverConsts.PLAYER_MARGIN_BEETWEN_PLAYER_AND_LINE + this.size / 2) * 2.0 / speed)].x,
-                    this.positions[(int) ((double) (CurveFeverConsts.PLAYER_MARGIN_BEETWEN_PLAYER_AND_LINE + this.size / 2) * 2.0 / speed)].y,
-                    size,
-                    size);
+            gc.fillOval(this.positions[(int) ((double) (CurveFeverConsts.PLAYER_MARGIN_BEETWEN_PLAYER_AND_LINE + this.size / 2) * 2.0 / speed)].x,
+                        this.positions[(int) ((double) (CurveFeverConsts.PLAYER_MARGIN_BEETWEN_PLAYER_AND_LINE + this.size / 2) * 2.0 / speed)].y,
+                        size,
+                        size);
         }
 
         gc.restore();
+    }
+
+    public void catchBonus(BonusType type) {
+        switch (type) {
+            case changeSize:
+                this.sizeBonusCounter = CurveFeverConsts.BONUS_TIME_OF_DURATION;
+                this.size = CurveFeverConsts.BONUS_SIZE_OF_PLAYER;
+                break;
+            case slowDown:
+                this.slowDownBonusCounter = CurveFeverConsts.BONUS_TIME_OF_DURATION;
+                this.speed = CurveFeverConsts.BONUS_SPEED_OF_PLAYER;
+                break;
+        }
     }
 
     private void positionTest() {

@@ -55,7 +55,7 @@ public class Main extends Application {
         Canvas canvas = new Canvas(widthOfForm, heightOfForm);
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        Parent configRoot = FXMLLoader.load(getClass().getResource("configdialog/ConfigDialog.fxml"));
+        Parent configRoot = FXMLLoader.load(getClass().getResource("configDialog/ConfigDialog.fxml"));
         Stage configStage = new Stage(StageStyle.UTILITY);
         configStage.initOwner(primaryStage);
         configStage.setTitle("Curve Fever");

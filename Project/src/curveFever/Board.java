@@ -25,13 +25,13 @@ public class Board {
         }
     }
 
-//    public int getWidth() {
-//        return this.width;
-//    }
+    public int getWidth() {
+        return this.width;
+    }
 
-//    public int getHeight() {
-//        return this.height;
-//    }
+    public int getHeight() {
+        return this.height;
+    }
 
     public boolean checkSpace(Point position, int size) {           // sprawdza kilka punktow na graczu i czy nie jest za blisko ściany
         int x = (int) position.x - 1;                               // bo w tablicy bedzie to przesuniete
@@ -71,6 +71,7 @@ public class Board {
             }
         }
     }
+
     public void clearBoard(){
         for(int i=0; i<width;i++)
             for(int j=0; j<height;j++)

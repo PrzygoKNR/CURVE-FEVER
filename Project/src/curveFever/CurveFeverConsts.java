@@ -13,6 +13,13 @@ public class CurveFeverConsts {
     public final static int MS_TO_DRAW_BREAK = 1000;
     public final static int MS_TO_START_DRAWING = 200;
     public final static int NUMBER_OF_POINTS_TO_STORE = 40;
+    public final static int NUMBER_OF_BONUSES_ON_BOARD = 60;
+    public final static int BONUS_IMAGE_SIZE = 32;
+    public final static int BONUS_TIME_OF_DURATION = 1000;
+    public final static int BONUS_SIZE_OF_PLAYER = 5;
+    public final static double BONUS_SPEED_OF_PLAYER = 1.0;
+    public final static int BONUS_ANIMATION_DURATION= 100;
+
 
     public final static int MARGIN_OF_BOUNDS = 300;
 }
