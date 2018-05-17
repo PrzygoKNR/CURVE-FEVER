@@ -32,6 +32,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         musicPlayer = new MusicPlayer();
         musicPlayer.shuffleMusicList();
+        musicPlayer.playIntro();
 
         Group root = new Group();
         primaryStage.setTitle("Curve Fever");

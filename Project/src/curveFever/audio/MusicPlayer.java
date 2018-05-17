@@ -15,6 +15,7 @@ public class MusicPlayer {
     private File musicFolder;
     private Queue<File> musicList;
     public MediaPlayer mediaPlayer;
+    private MediaPlayer introPlayer;
     private boolean looping;
 
     private void playSongsTillMidnight() {
@@ -27,7 +28,7 @@ public class MusicPlayer {
         mediaPlayer = new MediaPlayer(media);
 
         mediaPlayer.setOnReady(() -> {
-            mediaPlayer.play();
+//            mediaPlayer.play();
             mediaPlayer.setOnEndOfMedia(this::onEndOfMedia);
         });
     }
@@ -45,6 +46,7 @@ public class MusicPlayer {
         musicList = new LinkedList<>();
         Arrays.stream(musicFolder.listFiles())
                 .filter(file -> file.toString().endsWith(".mp3"))
+                .filter(file -> !file.toString().contains("intro"))
                 .forEach(file -> musicList.add(file));
 
         if (!musicList.isEmpty()) {
@@ -53,7 +55,7 @@ public class MusicPlayer {
     }
 
     public MusicPlayer() {
-        looping = false;
+        looping = true;
         setMusicFolder(defaultMusicFolderPath);
         musicPlayerController();
     }
@@ -116,10 +118,22 @@ public class MusicPlayer {
             musicList.add(song);
     }
 
-//    new MusicPlayer()
-//    public void toDefaultResourceFolder() {
-//        setMusicFolder(defaultMusicFolderPath);
-//    }
+    public void playIntro() {
+        mediaPlayer.pause();
+        Media media = null;
+        try {
+            media = new Media(new File(getClass().getResource(defaultMusicFolderPath + "intro.mp3").toURI()).toURI().toString());
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        introPlayer = new MediaPlayer(media);
+        introPlayer.play();
+    }
+
+    public void play() {
+        introPlayer.stop();
+        mediaPlayer.play();
+    }
 
     public File getMusicFolder() {
         return musicFolder;
@@ -132,4 +146,6 @@ public class MusicPlayer {
     public void setLooping(boolean looping) {
         this.looping = looping;
     }
+
+
 }

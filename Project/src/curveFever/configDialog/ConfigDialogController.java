@@ -467,6 +467,7 @@ public class ConfigDialogController {
             System.out.println();
         }
 
+        Main.musicPlayer.play();
         Stage stage = (Stage) gridPaneOne.getScene().getWindow();
         stage.close();
     }
