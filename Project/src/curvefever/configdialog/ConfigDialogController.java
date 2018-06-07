@@ -465,6 +465,10 @@ public class ConfigDialogController {
             }
             System.out.println();
         }
+<<<<<<< HEAD:Project/src/curvefever/configdialog/ConfigDialogController.java
+=======
+
+>>>>>>> 0cffb1a13905b3a84ae56bdbb5b234555f8b5d42:Project/src/curveFever/configDialog/ConfigDialogController.java
         Main.musicPlayer.play();
         Stage stage = (Stage) gridPaneOne.getScene().getWindow();
         stage.close();
