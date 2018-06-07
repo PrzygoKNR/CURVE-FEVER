@@ -15,7 +15,7 @@ public class ScoreCounter {
         if (scores.containsKey(id) == true) {
             scores.put(id, scores.get(id).intValue() + 1);
         } else if (scores.containsKey(id) == false) {
-            scores.put(id, 0);
+            scores.put(id, 1);
         }
     }
 
